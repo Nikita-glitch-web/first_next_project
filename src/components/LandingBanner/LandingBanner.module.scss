@@ -1,0 +1,80 @@
+
+.banner_content_box {
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .banner_content {
+    background-image: url("/public/images/Desktop-screen.png");
+  }
+}
+
+.banner_content {
+  background-image: url("/public/images/LandingBanner.png");
+  width: 100%;
+  height: 650px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+}
+
+.banner_title {
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 40px;
+  text-align: center;
+  color: white;
+  margin: 0px;
+}
+
+.bannner_text {
+  font-size: var(--font-size-regular);
+  font-weight: 400;
+  line-height: 26px;
+  text-align: center;
+  margin: 0px;
+  color: white;
+  padding-top: 20px;
+}
+
+.banner_text_box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  max-width: 380px;
+}
+
+.banner_btn {
+  margin-top: 25px;
+  transition: background-color 0.3s, transform 0.3s;
+
+}
+
+@media (max-width: 768px) {
+  .banner_content {
+    background-image: url("/public/images/Mobile-screen.png");
+  }
+
+    .banner_text_box {
+    padding-left: 15px;
+    padding-right: 15px;
+  } 
+}
+
+@media (max-width: 350px) {
+  .banner_content {
+    background-image: url("/public/images/Xs-screen.png");
+  }
+}
+
+@media (min-width: 1170px) {
+  .banner_content {
+    background-image: url("/public/images/Large-screen.png");
+  }
+
+}
+
+
+

@@ -1,0 +1,23 @@
+.button {
+  min-width: 80px;
+  padding: 4px 22px;
+  background: var(--primary-color);
+  color: var(--text-color);
+  text-align: center;
+  border-radius: 80px;
+  line-height: 26px;
+  border: none;
+  text-decoration: none;
+}
+
+.button:hover {
+  background: var(--hover-btn-color);
+  cursor: pointer;
+}
+
+.button:disabled,
+.button.disabled {
+  background: var( --disabled-color);
+  color: var(--disabled-text-color);
+  cursor: not-allowed;
+}
