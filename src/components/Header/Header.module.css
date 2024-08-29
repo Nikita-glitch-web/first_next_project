@@ -17,6 +17,41 @@
   padding-left: 24px;
 }
 
+.button {
+  min-width: 80px;
+  padding: 4px 22px;
+  background: var(--primary-color);
+  color: var(--text-color);
+  text-align: center;
+  border-radius: 80px;
+  line-height: 26px;
+  border: none;
+  text-decoration: none;
+}
+
+.button:hover {
+  background: var(--hover-btn-color);
+  cursor: pointer;
+}
+
+.button:disabled,
+.button.disabled {
+  background: var( --disabled-color);
+  color: var(--disabled-text-color);
+  cursor: not-allowed;
+}
+
+
+.header_btn_wrapper:nth-child(3) {
+  margin-left: 10px;
+}
+
+
+.header_btn_wrapper:nth-child(4) {
+  margin-left: 10px;
+}
+
+
 .header_logo_wrapper {
   display: flex;
   align-items: center;

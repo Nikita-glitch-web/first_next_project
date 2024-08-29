@@ -25,19 +25,19 @@ export const Header: FC<HeaderProps> = () => {
             </Button>
           </div>
           <div className={style.header_btn_wrapper}>
-            <Button href="#signUpForm" className={style.button}> 
+            <Button href="#signUpForm" className={style.button}>
               Sign up
             </Button>
           </div>
           <div className={style.header_btn_wrapper}>
-            <Link className={style.button} href="/login">
-              Login
-            </Link>
+              <Link className={style.button} href="/login">
+                Login
+              </Link>
           </div>
           <div className={style.header_btn_wrapper}>
-            <Link className={style.button} href="/sign-up">
-              Register
-            </Link>
+              <Link className={style.button} href="/sign-up">
+                Register
+              </Link>
           </div>
         </div>
       </div>

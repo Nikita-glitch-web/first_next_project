@@ -74,7 +74,7 @@ export const LoginForm: FC = () => {
         <Preloader />
       ) : (
         <form className={style.form} onSubmit={handleSubmit}>
-          <h3 className={style.form_title}>Login</h3>
+          <h3 className={style.form_title}>Login here please!</h3>
           <div className={style.form_content_wrapper}>
             <Input
               id="email"
