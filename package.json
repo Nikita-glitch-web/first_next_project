@@ -3,14 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
+    "dev": "next dev",
+  "deploy": "npm run build && touch out/.nojekyll && git add -f out && git commit -m \"Deploy to GitHub Pages\" && git push origin `git subtree split --prefix out main`:gh-pages --force",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "formik": "^2.4.6",
-    "next": "14.2.6",
+    "next": "^14.2.6",
     "react": "^18",
     "react-dom": "^18",
     "react-input-mask": "^2.0.4",
