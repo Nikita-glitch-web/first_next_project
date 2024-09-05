@@ -10,13 +10,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "classnames": "^2.5.1",
     "firebase": "^10.13.1",
     "formik": "^2.4.6",
     "next": "^14.2.6",
     "react": "^18",
     "react-dom": "^18",
     "react-input-mask": "^2.0.4",
-    "scss": "^0.2.4"
+    "sass": "^1.78.0",
+    "scss": "^0.2.4",
+    "zustand": "^4.5.5"
   },
   "devDependencies": {
     "@types/node": "^20",
