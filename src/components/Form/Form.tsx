@@ -9,8 +9,15 @@ import { useFormik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import useImageValidation from "./useImageValidation";
 import useApiRequest from "./useRequest";
+import {
+  createUserWithEmailAndPassword,
+  UserCredential,
+  AuthError,
+} from "firebase/auth";
+import { auth } from "./firebase";
+import { useAuthStore } from "./useAuthStore";
 
-// Интерфейс для данных формы
+// Interface for form data
 interface FormValues {
   name: string;
   email: string;
@@ -19,13 +26,13 @@ interface FormValues {
   photo: File | null;
 }
 
-// Интерфейс для позиции
+// Interface for positon
 interface Position {
   id: string;
   name: string;
 }
 
-// Основной компонент формы
+// main form component
 export const UploadImageForm: FC = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [positions, setPositions] = useState<Position[]>([]);
@@ -33,7 +40,9 @@ export const UploadImageForm: FC = () => {
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const { imageError, fileName, handleFileChange } = useImageValidation({});
 
-  // Хук для POST запроса
+  const { setUser } = useAuthStore();
+
+  // Hook for post request
   const {
     makeRequest: makePostRequest,
     loading: postLoading,
@@ -43,7 +52,7 @@ export const UploadImageForm: FC = () => {
     "POST"
   );
 
-  // Хук для GET запроса
+  // Hook for get request
   const {
     makeRequest: makeGetRequest,
     loading: getLoading,
@@ -56,7 +65,7 @@ export const UploadImageForm: FC = () => {
   useEffect(() => {
     const fetchPositions = async () => {
       try {
-        const data = await makeGetRequest(); // Используем GET запрос через хук
+        const data = await makeGetRequest(); // Use get request with hook
         if (data.positions) {
           setPositions(data.positions);
           if (data.positions.length > 0) {
@@ -124,10 +133,19 @@ export const UploadImageForm: FC = () => {
       formData.append("photo", values.photo as Blob);
 
       try {
-        await makePostRequest(formData); // Вызов POST запроса через хук
+        const userCredential: UserCredential =
+          await createUserWithEmailAndPassword(
+            auth,
+            values.email,
+            values.phone
+          );
+        const user = userCredential.user;
+        setUser(user); // save uset in Zustand
+        await makePostRequest(formData); // Call post request with hook
         setIsSuccess(true);
-      } catch {
-        setFieldError("photo", "Не удалось отправить данные");
+      } catch (error) {
+        const authError = error as AuthError;
+        setFieldError("email", authError.message || "Ошибка при регистрации");
       }
     },
   });
