@@ -19,6 +19,7 @@
     "react-input-mask": "^2.0.4",
     "sass": "^1.78.0",
     "scss": "^0.2.4",
+    "yup": "^1.4.0",
     "zustand": "^4.5.5"
   },
   "devDependencies": {
