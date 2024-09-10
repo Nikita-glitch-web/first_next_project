@@ -30,14 +30,9 @@ export const Header: FC<HeaderProps> = () => {
             </Button>
           </div>
           <div className={style.header_btn_wrapper}>
-              <Link className={style.button} href="/login">
-                Login
-              </Link>
-          </div>
-          <div className={style.header_btn_wrapper}>
-              <Link className={style.button} href="/sign-up">
-                Register
-              </Link>
+            <Link className={style.button} href="/login">
+              Login
+            </Link>
           </div>
         </div>
       </div>
