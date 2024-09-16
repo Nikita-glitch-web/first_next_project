@@ -1,5 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import style from "../components/Form/Form.module.css";
 import { Button } from "../components/Controls/Button";
 import { Input } from "../components/Form/components/Input";
@@ -54,6 +53,7 @@ export const LoginForm: FC = () => {
       { setFieldError }: FormikHelpers<LoginFormValues>
     ) => {
       try {
+        // Login logic
         const userCredential = await signInWithEmailAndPassword(
           auth,
           values.email,

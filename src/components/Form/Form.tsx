@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect, useRef, ChangeEvent, FC } from "react";
 import classNames from "classnames";
+import Link from "next/link"; // Додано імпорт Link
 import style from "./Form.module.css";
 import { Button } from "../Controls/Button";
 import { Input, InputMasked, RadioButton } from "./components";
@@ -9,13 +10,6 @@ import { useFormik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import useImageValidation from "./useImageValidation";
 import useApiRequest from "./useRequest";
-import {
-  createUserWithEmailAndPassword,
-  UserCredential,
-  AuthError,
-} from "firebase/auth";
-import { auth } from "./firebase";
-import { useAuthStore } from "./useAuthStore";
 
 // Interface for form data
 interface FormValues {
@@ -26,7 +20,7 @@ interface FormValues {
   photo: File | null;
 }
 
-// Interface for positon
+// Interface for position
 interface Position {
   id: string;
   name: string;
@@ -39,8 +33,6 @@ export const UploadImageForm: FC = () => {
   const [selectedPosition, setSelectedPosition] = useState<string>("");
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const { imageError, fileName, handleFileChange } = useImageValidation({});
-
-  const { setUser } = useAuthStore();
 
   // Hook for post request
   const {
@@ -131,21 +123,11 @@ export const UploadImageForm: FC = () => {
       formData.append("phone", values.phone);
       formData.append("position_id", selectedPosition);
       formData.append("photo", values.photo as Blob);
-
       try {
-        const userCredential: UserCredential =
-          await createUserWithEmailAndPassword(
-            auth,
-            values.email,
-            values.phone
-          );
-        const user = userCredential.user;
-        setUser(user); // save uset in Zustand
-        await makePostRequest(formData); // Call post request with hook
+        await makePostRequest(formData); // Виклик POST-запиту за допомогою хука
         setIsSuccess(true);
       } catch (error) {
-        const authError = error as AuthError;
-        setFieldError("email", authError.message || "Ошибка при регистрации");
+        setFieldError("email", "Ошибка при регистрации");
       }
     },
   });
@@ -177,16 +159,24 @@ export const UploadImageForm: FC = () => {
         <Preloader />
       ) : isSuccess ? (
         <div className={style.success_screen}>
-          <h4 className={style.success_title}>User successfully registered</h4>
+          <h4 className={style.success_title}>
+            Thank you for joining us , now register
+          </h4>
           <img
             src={"./images/Success.png"}
             alt="Success"
             className={style.success_img}
           />
+          {/* Додаємо кнопку з посиланням на нову сторінку */}
+          <div className={style.btn_register_wrapper}>
+            <Link href="/signup">
+              <Button className={style.btn_submit}>Register</Button>
+            </Link>
+          </div>
         </div>
       ) : (
         <form className={style.form} id="signUpForm" onSubmit={handleSubmit}>
-          <h3 className={style.form_title}>Working with POST request</h3>
+          <h3 className={style.form_title}>Join us!</h3>
           <div className={style.form_content_wrapper}>
             <Input
               id="name"
