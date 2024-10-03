@@ -1,41 +1,40 @@
-import React, { FC, useState, useRef, ChangeEvent } from "react";
-import { useFormik, FormikHelpers } from "formik";
-import * as Yup from "yup";
-import { Button } from "../Controls/Button";
-import { Input, InputMasked, Preloader } from "./components";
-import { auth } from "./firebase";
+import React, { FC, useState, useRef, ChangeEvent } from 'react';
+import { useFormik, FormikHelpers } from 'formik';
+import * as Yup from 'yup';
+import { Button } from '../Controls/Button';
+import { Input, InputMasked, Preloader } from './components';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-} from "firebase/auth";
-import { useAuthStore } from "./useAuthStore";
-import useApiRequest from "./useRequest"; // Переконайтеся, що шлях правильний
-import style from "../components/Form/Form.module.css";
+} from 'firebase/auth';
+import { useAuthStore } from '../../store/auth/useAuthStore';
+import useApiRequest from './useRequest'; // Переконайтеся, що шлях правильний
+import style from '../components/Form/Form.module.css';
 
 // Props interface для визначення типу форми
 interface FormProps {
-  type: "login" | "register" | "upload"; // Тип форми
+  type: 'login' | 'register' | 'upload'; // Тип форми
 }
 
 const FormComponent: FC<FormProps> = ({ type }) => {
   const [isSuccess, setIsSuccess] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const { setUser } = useAuthStore(); // Використання Zustand для збереження стану користувача
+  const { signUp, login } = useAuthStore(); // Використання Zustand для збереження стану користувача
 
   // Для типу "upload" передаємо URL та метод
   const { makeRequest, loading, error } = useApiRequest(
-    type === "upload" ? "/api/upload" : "", // URL для "upload"
-    type === "upload" ? "POST" : "GET" // Метод для "upload"
+    type === 'upload' ? '/api/upload' : '', // URL для "upload"
+    type === 'upload' ? 'POST' : 'GET' // Метод для "upload"
   );
 
   // Ініціалізація значень форми в залежності від типу
   const initialValues = {
-    email: "",
-    password: "",
-    confirmPassword: type === "register" ? "" : undefined,
-    name: type === "upload" ? "" : undefined,
-    phone: type === "upload" ? "" : undefined,
-    position: type === "upload" ? "" : undefined,
+    email: '',
+    password: '',
+    confirmPassword: type === 'register' ? '' : undefined,
+    name: type === 'upload' ? '' : undefined,
+    phone: type === 'upload' ? '' : undefined,
+    position: type === 'upload' ? '' : undefined,
     photo: null as File | null, // Поле photo тепер типу File або null
   };
 
@@ -46,43 +45,43 @@ const FormComponent: FC<FormProps> = ({ type }) => {
         /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,3}$/,
         "Must contain '@' and a domain name"
       )
-      .required("Email is required"),
+      .required('Email is required'),
     password: Yup.string()
-      .min(6, "Password must be at least 6 characters long")
-      .required("Password is required"),
+      .min(6, 'Password must be at least 6 characters long')
+      .required('Password is required'),
     confirmPassword: Yup.lazy(() =>
-      type === "register"
+      type === 'register'
         ? Yup.string()
-            .oneOf([Yup.ref("password")], "Passwords must match")
-            .required("Confirm Password is required")
+            .oneOf([Yup.ref('password')], 'Passwords must match')
+            .required('Confirm Password is required')
         : Yup.string().nullable()
     ),
     name: Yup.lazy(() =>
-      type === "upload"
+      type === 'upload'
         ? Yup.string()
-            .min(3, "Name must be at least 3 characters")
-            .required("Name is required")
+            .min(3, 'Name must be at least 3 characters')
+            .required('Name is required')
         : Yup.string().nullable()
     ),
     phone: Yup.lazy(() =>
-      type === "upload"
+      type === 'upload'
         ? Yup.string()
-            .min(3, "Phone must be at least 3 characters")
-            .required("Phone is required")
+            .min(3, 'Phone must be at least 3 characters')
+            .required('Phone is required')
         : Yup.string().nullable()
     ),
     position: Yup.lazy(() =>
-      type === "upload"
-        ? Yup.string().required("Position is required")
+      type === 'upload'
+        ? Yup.string().required('Position is required')
         : Yup.string().nullable()
     ),
     photo: Yup.lazy(() =>
-      type === "upload"
+      type === 'upload'
         ? Yup.mixed()
-            .required("Photo is required")
-            .test("fileFormat", "Unsupported Format", (value) => {
+            .required('Photo is required')
+            .test('fileFormat', 'Unsupported Format', (value) => {
               if (value && value instanceof File) {
-                return ["image/jpeg", "image/png"].includes(value.type);
+                return ['image/jpeg', 'image/png'].includes(value.type);
               }
               return false; // Якщо value не є файлом
             })
@@ -96,32 +95,22 @@ const FormComponent: FC<FormProps> = ({ type }) => {
     { setFieldError }: FormikHelpers<typeof initialValues>
   ) => {
     try {
-      if (type === "register") {
-        const userCredential = await createUserWithEmailAndPassword(
-          auth,
-          values.email!,
-          values.password!
-        );
-        setUser(userCredential.user);
-      } else if (type === "login") {
-        const userCredential = await signInWithEmailAndPassword(
-          auth,
-          values.email!,
-          values.password!
-        );
-        setUser(userCredential.user);
-      } else if (type === "upload") {
+      if (type === 'register') {
+        await signUp({ email: values.email, password: values.password });
+      } else if (type === 'login') {
+        await login({ email: values.email, password: values.password });
+      } else if (type === 'upload') {
         const formData = new FormData();
-        formData.append("name", values.name!);
-        formData.append("email", values.email!);
-        formData.append("phone", values.phone!);
-        formData.append("position", values.position!);
-        formData.append("photo", values.photo as File); // Переконалися, що це File
+        formData.append('name', values.name!);
+        formData.append('email', values.email!);
+        formData.append('phone', values.phone!);
+        formData.append('position', values.position!);
+        formData.append('photo', values.photo as File); // Переконалися, що це File
         await makeRequest(formData);
       }
       setIsSuccess(true);
     } catch (error: any) {
-      setFieldError("email", "Failed to submit the form");
+      setFieldError('email', 'Failed to submit the form');
     }
   };
 
@@ -144,7 +133,7 @@ const FormComponent: FC<FormProps> = ({ type }) => {
   // Обробка зміни файлу
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
-    setFieldValue("photo", file); // Оновлюємо значення photo в Formik
+    setFieldValue('photo', file); // Оновлюємо значення photo в Formik
   };
 
   if (loading) return <Preloader />;
@@ -156,75 +145,75 @@ const FormComponent: FC<FormProps> = ({ type }) => {
   ) : (
     <form className={style.form} onSubmit={handleSubmit}>
       <h3 className={style.form_title}>
-        {type === "register"
-          ? "Register"
-          : type === "login"
-          ? "Login"
-          : "Upload Image"}
+        {type === 'register'
+          ? 'Register'
+          : type === 'login'
+          ? 'Login'
+          : 'Upload Image'}
       </h3>
       <div className={style.form_content_wrapper}>
-        {type !== "upload" && (
+        {type !== 'upload' && (
           <>
             <Input
-              id="email"
+              id='email'
               value={values.email}
-              type="email"
-              placeholder="Email"
+              type='email'
+              placeholder='Email'
               onChange={handleChange}
               onBlur={handleBlur}
-              name="email"
+              name='email'
               errorMessage={touched.email && errors.email}
             />
             <Input
-              id="password"
+              id='password'
               value={values.password}
-              type="password"
-              placeholder="Password"
+              type='password'
+              placeholder='Password'
               onChange={handleChange}
               onBlur={handleBlur}
-              name="password"
+              name='password'
               errorMessage={touched.password && errors.password}
             />
           </>
         )}
 
-        {type === "register" && (
+        {type === 'register' && (
           <Input
-            id="confirmPassword"
+            id='confirmPassword'
             value={values.confirmPassword!}
-            type="password"
-            placeholder="Confirm Password"
+            type='password'
+            placeholder='Confirm Password'
             onChange={handleChange}
             onBlur={handleBlur}
-            name="confirmPassword"
+            name='confirmPassword'
             errorMessage={touched.confirmPassword && errors.confirmPassword}
           />
         )}
 
-        {type === "upload" && (
+        {type === 'upload' && (
           <>
             <Input
-              id="name"
+              id='name'
               value={values.name!}
-              type="text"
-              placeholder="Your name"
+              type='text'
+              placeholder='Your name'
               onChange={handleChange}
               onBlur={handleBlur}
-              name="name"
+              name='name'
               errorMessage={touched.name && errors.name}
             />
             <InputMasked
-              id="phone"
+              id='phone'
               value={values.phone!}
-              type="tel"
-              placeholder="Phone"
+              type='tel'
+              placeholder='Phone'
               onChange={handleChange}
               onBlur={handleBlur}
-              name="phone"
+              name='phone'
               errorMessage={touched.phone && errors.phone}
             />
             <input
-              type="file"
+              type='file'
               ref={fileInputRef}
               onChange={handleFileChange}
               className={style.file_input}
@@ -237,15 +226,15 @@ const FormComponent: FC<FormProps> = ({ type }) => {
 
         <div className={style.form_btn_wrapper}>
           <Button
-            type="submit"
+            type='submit'
             disabled={!isValid || !dirty}
             className={style.btn_submit}
           >
-            {type === "register"
-              ? "Register"
-              : type === "login"
-              ? "Login"
-              : "Upload"}
+            {type === 'register'
+              ? 'Register'
+              : type === 'login'
+              ? 'Login'
+              : 'Upload'}
           </Button>
         </div>
       </div>

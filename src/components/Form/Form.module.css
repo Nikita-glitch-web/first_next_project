@@ -171,7 +171,7 @@
 
 .custom_radio {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   cursor: pointer;
   font-size: var(--font-size-regular);
   margin-bottom: 10px;

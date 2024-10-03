@@ -1,13 +1,11 @@
-import React, { FC, useState } from "react";
-import style from "../components/Form/Form.module.css";
-import { Button } from "../components/Controls/Button";
-import { Input } from "../components/Form/components/Input";
-import { Preloader } from "../components/Form/components/Preloader";
-import { useFormik, FormikHelpers } from "formik";
-import * as Yup from "yup";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../components/Form/firebase";
-import { useAuthStore } from "../components/Form/useAuthStore";
+import React, { FC, useState } from 'react';
+import style from '../components/Form/Form.module.css';
+import { Button } from '../components/Controls/Button';
+import { Input } from '../components/input';
+import { Preloader } from '../components/preloader/Preloader';
+import { useFormik, FormikHelpers } from 'formik';
+import * as Yup from 'yup';
+import { useAuthStore } from '../store/auth/useAuthStore';
 
 // Interface for form data
 interface LoginFormValues {
@@ -17,11 +15,11 @@ interface LoginFormValues {
 
 // Main Login form component
 export const LoginForm: FC = () => {
-  const { setUser } = useAuthStore();
+  const { setUser, login } = useAuthStore();
 
   const initialValues: LoginFormValues = {
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   };
 
   const validationSchema = Yup.object({
@@ -30,10 +28,10 @@ export const LoginForm: FC = () => {
         /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,3}$/,
         "Must contain '@' and a domain name"
       )
-      .required("Email is required"),
+      .required('Email is required'),
     password: Yup.string()
-      .min(6, "Password must be at least 6 characters long")
-      .required("Password is required"),
+      .min(6, 'Password must be at least 6 characters long')
+      .required('Password is required'),
   });
 
   const {
@@ -54,16 +52,10 @@ export const LoginForm: FC = () => {
     ) => {
       try {
         // Login logic
-        const userCredential = await signInWithEmailAndPassword(
-          auth,
-          values.email,
-          values.password
-        );
-        const user = userCredential.user;
-        setUser(user); // Save user in Zustand
-        alert("Login successful!");
+        await login(values);
+        alert('Login successful!');
       } catch (error) {
-        setFieldError("email", "Failed to login with the provided credentials");
+        setFieldError('email', 'Failed to login with the provided credentials');
       }
     },
   });
@@ -77,23 +69,23 @@ export const LoginForm: FC = () => {
           <h3 className={style.form_title}>Login here please!</h3>
           <div className={style.form_content_wrapper}>
             <Input
-              id="email"
+              id='email'
               value={values.email}
-              type="email"
-              placeholder="Email"
+              type='email'
+              placeholder='Email'
               onChange={handleChange}
               onBlur={handleBlur}
-              name="email"
+              name='email'
               errorMessage={touched.email && errors.email}
             />
             <Input
-              id="password"
+              id='password'
               value={values.password}
-              type="password"
-              placeholder="Password"
+              type='password'
+              placeholder='Password'
               onChange={handleChange}
               onBlur={handleBlur}
-              name="password"
+              name='password'
               errorMessage={touched.password && errors.password}
             />
             {errors.email && (
@@ -101,7 +93,7 @@ export const LoginForm: FC = () => {
             )}
             <div className={style.form_btn_wrapper}>
               <Button
-                type="submit"
+                type='submit'
                 disabled={!isValid || !dirty}
                 className={style.btn_submit}
               >

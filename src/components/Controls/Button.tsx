@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { FC, ReactNode } from "react";
 import style from "./Button.module.css";
+import Link from "next/link";
 
 interface ButtonProps {
   children: ReactNode;
@@ -27,9 +28,9 @@ export const Button: FC<ButtonProps> = ({
 
   // Render an <a> tag if href is provided, otherwise a <button> tag
   return href ? (
-    <a href={href} className={classNames} onClick={onClick}>
+    <Link href={href} className={classNames} onClick={onClick}>
       {children}
-    </a>
+    </Link>
   ) : (
     <button
       className={classNames}

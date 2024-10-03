@@ -3,7 +3,7 @@
 import React, { FC, useState, useEffect } from "react";
 import classNames from "classnames";
 import style from "./TeamMembers.module.scss";
-import { Preloader } from "../Form/components";
+import { Preloader } from "../preloader";
 import { Button } from "../Controls/Button";
 
 interface TeamMember { 

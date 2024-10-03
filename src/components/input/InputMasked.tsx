@@ -1,6 +1,6 @@
 import React, { FC, FocusEvent, ChangeEvent } from 'react';
 import InputMask from 'react-input-mask';
-import { Input } from './Input';
+import { Input } from '../Form/components';
 import styles from './Input.module.css';
 import { InputProps } from './types';
 

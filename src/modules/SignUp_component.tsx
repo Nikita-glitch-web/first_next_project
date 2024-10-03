@@ -4,12 +4,12 @@
 import React, { FC, useState } from "react";
 import style from "../components/Form/Form.module.css";
 import { Button } from "../components/Controls/Button";
-import { Input } from "../components/Form/components/Input";
+import { Input } from "../components/Form/components";
 import { useFormik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../components/Form/firebase"; // Імпортуємо Firebase auth
-import { useAuthStore } from "../components/Form/useAuthStore"; // Імпортуємо Zustand
+import { auth } from "../store/auth/firebase.config"; // Імпортуємо Firebase auth
+import { useAuthStore } from "../store/auth/useAuthStore"; // Імпортуємо Zustand
 
 interface RegisterFormValues {
   email: string;
