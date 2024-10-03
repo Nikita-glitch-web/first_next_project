@@ -1,104 +1,129 @@
-/* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect, useRef, ChangeEvent, FC } from "react";
-import classNames from "classnames";
-import Link from "next/link"; // Додано імпорт Link
-import style from "./Form.module.css";
-import { Button } from "../Controls/Button";
-import { Input, InputMasked, RadioButton } from "./components";
-import { Preloader } from "./components";
+import React, { FC, useState, useRef, ChangeEvent } from "react";
 import { useFormik, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import useImageValidation from "./useImageValidation";
-import useApiRequest from "./useRequest";
+import { Button } from "../Controls/Button";
+import { Input, InputMasked, Preloader } from "./components";
+import { auth } from "./firebase";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { useAuthStore } from "./useAuthStore";
+import useApiRequest from "./useRequest"; // Переконайтеся, що шлях правильний
+import style from "../components/Form/Form.module.css";
 
-// Interface for form data
-interface FormValues {
-  name: string;
-  email: string;
-  phone: string;
-  position: string;
-  photo: File | null;
+// Props interface для визначення типу форми
+interface FormProps {
+  type: "login" | "register" | "upload"; // Тип форми
 }
 
-// Interface for position
-interface Position {
-  id: string;
-  name: string;
-}
-
-// main form component
-export const UploadImageForm: FC = () => {
+const FormComponent: FC<FormProps> = ({ type }) => {
+  const [isSuccess, setIsSuccess] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [positions, setPositions] = useState<Position[]>([]);
-  const [selectedPosition, setSelectedPosition] = useState<string>("");
-  const [isSuccess, setIsSuccess] = useState<boolean>(false);
-  const { imageError, fileName, handleFileChange } = useImageValidation({});
+  const { setUser } = useAuthStore(); // Використання Zustand для збереження стану користувача
 
-  // Hook for post request
-  const {
-    makeRequest: makePostRequest,
-    loading: postLoading,
-    error: postError,
-  } = useApiRequest<FormData>(
-    "https://frontend-test-assignment-api.abz.agency/api/v1/users",
-    "POST"
+  // Для типу "upload" передаємо URL та метод
+  const { makeRequest, loading, error } = useApiRequest(
+    type === "upload" ? "/api/upload" : "", // URL для "upload"
+    type === "upload" ? "POST" : "GET" // Метод для "upload"
   );
 
-  // Hook for get request
-  const {
-    makeRequest: makeGetRequest,
-    loading: getLoading,
-    error: getError,
-  } = useApiRequest<void>(
-    "https://frontend-test-assignment-api.abz.agency/api/v1/positions",
-    "GET"
-  );
-
-  useEffect(() => {
-    const fetchPositions = async () => {
-      try {
-        const data = await makeGetRequest(); // Use get request with hook
-        if (data.positions) {
-          setPositions(data.positions);
-          if (data.positions.length > 0) {
-            const defaultPosition = data.positions[0].id;
-            setSelectedPosition(String(defaultPosition));
-            setFieldValue("position", defaultPosition);
-          }
-        }
-      } catch (error) {
-        console.error("Ошибка при получении позиций:", getError);
-      }
-    };
-
-    fetchPositions();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const initialValues: FormValues = {
-    name: "",
+  // Ініціалізація значень форми в залежності від типу
+  const initialValues = {
     email: "",
-    phone: "",
-    position: selectedPosition,
-    photo: null,
+    password: "",
+    confirmPassword: type === "register" ? "" : undefined,
+    name: type === "upload" ? "" : undefined,
+    phone: type === "upload" ? "" : undefined,
+    position: type === "upload" ? "" : undefined,
+    photo: null as File | null, // Поле photo тепер типу File або null
   };
 
-  const validationSchema = Yup.object({
-    name: Yup.string()
-      .min(3, "Имя должно содержать минимум 3 символа")
-      .required("Имя обязательно"),
+  // Валідація форми в залежності від типу
+  const validationSchema = Yup.object().shape({
     email: Yup.string()
       .matches(
         /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,3}$/,
-        "Должно содержать '@' и доменное имя"
+        "Must contain '@' and a domain name"
       )
-      .required("Электронная почта обязательна"),
-    phone: Yup.string()
-      .min(3, "Телефон должен содержать минимум 3 символа")
-      .required("Телефон обязателен"),
-    position: Yup.string().required("Позиция обязательна"),
-    photo: Yup.mixed().required("Фото обязательно"),
+      .required("Email is required"),
+    password: Yup.string()
+      .min(6, "Password must be at least 6 characters long")
+      .required("Password is required"),
+    confirmPassword: Yup.lazy(() =>
+      type === "register"
+        ? Yup.string()
+            .oneOf([Yup.ref("password")], "Passwords must match")
+            .required("Confirm Password is required")
+        : Yup.string().nullable()
+    ),
+    name: Yup.lazy(() =>
+      type === "upload"
+        ? Yup.string()
+            .min(3, "Name must be at least 3 characters")
+            .required("Name is required")
+        : Yup.string().nullable()
+    ),
+    phone: Yup.lazy(() =>
+      type === "upload"
+        ? Yup.string()
+            .min(3, "Phone must be at least 3 characters")
+            .required("Phone is required")
+        : Yup.string().nullable()
+    ),
+    position: Yup.lazy(() =>
+      type === "upload"
+        ? Yup.string().required("Position is required")
+        : Yup.string().nullable()
+    ),
+    photo: Yup.lazy(() =>
+      type === "upload"
+        ? Yup.mixed()
+            .required("Photo is required")
+            .test("fileFormat", "Unsupported Format", (value) => {
+              if (value && value instanceof File) {
+                return ["image/jpeg", "image/png"].includes(value.type);
+              }
+              return false; // Якщо value не є файлом
+            })
+        : Yup.mixed().nullable()
+    ),
   });
+
+  // Логіка обробки форми в залежності від типу
+  const handleSubmitForm = async (
+    values: typeof initialValues,
+    { setFieldError }: FormikHelpers<typeof initialValues>
+  ) => {
+    try {
+      if (type === "register") {
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          values.email!,
+          values.password!
+        );
+        setUser(userCredential.user);
+      } else if (type === "login") {
+        const userCredential = await signInWithEmailAndPassword(
+          auth,
+          values.email!,
+          values.password!
+        );
+        setUser(userCredential.user);
+      } else if (type === "upload") {
+        const formData = new FormData();
+        formData.append("name", values.name!);
+        formData.append("email", values.email!);
+        formData.append("phone", values.phone!);
+        formData.append("position", values.position!);
+        formData.append("photo", values.photo as File); // Переконалися, що це File
+        await makeRequest(formData);
+      }
+      setIsSuccess(true);
+    } catch (error: any) {
+      setFieldError("email", "Failed to submit the form");
+    }
+  };
 
   const {
     values,
@@ -113,81 +138,33 @@ export const UploadImageForm: FC = () => {
   } = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: async (
-      values: FormValues,
-      { setFieldError }: FormikHelpers<FormValues>
-    ) => {
-      const formData = new FormData();
-      formData.append("name", values.name);
-      formData.append("email", values.email);
-      formData.append("phone", values.phone);
-      formData.append("position_id", selectedPosition);
-      formData.append("photo", values.photo as Blob);
-      try {
-        await makePostRequest(formData); // Виклик POST-запиту за допомогою хука
-        setIsSuccess(true);
-      } catch (error) {
-        setFieldError("email", "Ошибка при регистрации");
-      }
-    },
+    onSubmit: handleSubmitForm,
   });
 
-  const handleUpload = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
+  // Обробка зміни файлу
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    setFieldValue("photo", file); // Оновлюємо значення photo в Formik
   };
 
-  const handleFileInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      handleFileChange(file, setFieldValue);
-    }
-  };
+  if (loading) return <Preloader />;
 
-  const getShortFileName = (name: string) => {
-    const maxLength = 20;
-    if (name.length <= maxLength) {
-      return name;
-    }
-    return `${name.substring(0, 7)}...${name.substring(name.length - 10)}`;
-  };
-
-  return (
-    <>
-      {postLoading || getLoading ? (
-        <Preloader />
-      ) : isSuccess ? (
-        <div className={style.success_screen}>
-          <h4 className={style.success_title}>
-            Thank you for joining us , now register
-          </h4>
-          <img
-            src={"./images/Success.png"}
-            alt="Success"
-            className={style.success_img}
-          />
-          {/* Додаємо кнопку з посиланням на нову сторінку */}
-          <div className={style.btn_register_wrapper}>
-            <Link href="/signup">
-              <Button className={style.btn_submit}>Register</Button>
-            </Link>
-          </div>
-        </div>
-      ) : (
-        <form className={style.form} id="signUpForm" onSubmit={handleSubmit}>
-          <h3 className={style.form_title}>Join us!</h3>
-          <div className={style.form_content_wrapper}>
-            <Input
-              id="name"
-              value={values.name}
-              type="text"
-              placeholder="Your name"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              name="name"
-              errorMessage={touched.name && errors.name}
-            />
+  return isSuccess ? (
+    <div className={style.success_screen}>
+      <h4 className={style.success_title}>Thank you!</h4>
+    </div>
+  ) : (
+    <form className={style.form} onSubmit={handleSubmit}>
+      <h3 className={style.form_title}>
+        {type === "register"
+          ? "Register"
+          : type === "login"
+          ? "Login"
+          : "Upload Image"}
+      </h3>
+      <div className={style.form_content_wrapper}>
+        {type !== "upload" && (
+          <>
             <Input
               id="email"
               value={values.email}
@@ -198,9 +175,47 @@ export const UploadImageForm: FC = () => {
               name="email"
               errorMessage={touched.email && errors.email}
             />
+            <Input
+              id="password"
+              value={values.password}
+              type="password"
+              placeholder="Password"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              name="password"
+              errorMessage={touched.password && errors.password}
+            />
+          </>
+        )}
+
+        {type === "register" && (
+          <Input
+            id="confirmPassword"
+            value={values.confirmPassword!}
+            type="password"
+            placeholder="Confirm Password"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            name="confirmPassword"
+            errorMessage={touched.confirmPassword && errors.confirmPassword}
+          />
+        )}
+
+        {type === "upload" && (
+          <>
+            <Input
+              id="name"
+              value={values.name!}
+              type="text"
+              placeholder="Your name"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              name="name"
+              errorMessage={touched.name && errors.name}
+            />
             <InputMasked
               id="phone"
-              value={values.phone}
+              value={values.phone!}
               type="tel"
               placeholder="Phone"
               onChange={handleChange}
@@ -208,67 +223,34 @@ export const UploadImageForm: FC = () => {
               name="phone"
               errorMessage={touched.phone && errors.phone}
             />
-            <div className={style.radio_wrapper}>
-              <h2 className={style.radio_buttons__title}>
-                Select your position
-              </h2>
-              {positions.map((position) => (
-                <RadioButton
-                  key={position.id}
-                  position={position}
-                  selectedPosition={selectedPosition}
-                  onChange={(value) => {
-                    setSelectedPosition(value);
-                    setFieldValue("position", value);
-                  }}
-                />
-              ))}
-            </div>
-            <div
-              className={classNames(style.upload_container, {
-                [style.error_border]: imageError,
-              })}
-            >
-              <button
-                type="button"
-                onClick={handleUpload}
-                className={classNames(style.upload_button, {
-                  [style.error_btn_input]: imageError,
-                })}
-              >
-                Upload
-              </button>
-              <input
-                ref={fileInputRef}
-                className={style.img_input}
-                type="file"
-                name="photo"
-                onChange={handleFileInputChange}
-                onBlur={handleBlur}
-                style={{ display: "none" }}
-              />
-              <div className={style.image_preview_container}>
-                {fileName ? getShortFileName(fileName) : "Upload your photo"}
-              </div>
-              {imageError && (
-                <div className={style.error_message}>{imageError}</div>
-              )}
-            </div>
-            {(postError || getError) && (
-              <div className={style.error_message}>{postError || getError}</div>
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileChange}
+              className={style.file_input}
+            />
+            {errors.photo && (
+              <div className={style.error_message}>{errors.photo}</div>
             )}
-            <div className={style.form_btn_wrapper}>
-              <Button
-                type="submit"
-                disabled={!isValid || !dirty || postLoading}
-                className={style.btn_submit}
-              >
-                Sign up
-              </Button>
-            </div>
-          </div>
-        </form>
-      )}
-    </>
+          </>
+        )}
+
+        <div className={style.form_btn_wrapper}>
+          <Button
+            type="submit"
+            disabled={!isValid || !dirty}
+            className={style.btn_submit}
+          >
+            {type === "register"
+              ? "Register"
+              : type === "login"
+              ? "Login"
+              : "Upload"}
+          </Button>
+        </div>
+      </div>
+    </form>
   );
 };
+
+export default FormComponent;
