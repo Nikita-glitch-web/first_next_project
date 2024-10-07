@@ -1,14 +1,10 @@
-import { Input } from "@/components/Form/components/index";
-import { LoginForm } from "@/modules/Login_component";
+import SignUpForm from "../components/Form/SignUp-Form/signUp-form";
 import style from "./login.module.scss";
-import Link from "next/link";
-import { ChangeEvent, FocusEvent } from "react";
-import { RegisterForm } from "@/modules/SignUp_component";
 
-export default function Login() {
+export default function SignUp() {
   return (
     <div className={style.login_wrapper}>
-      <RegisterForm />
+      <SignUpForm />
     </div>
   );
 }
