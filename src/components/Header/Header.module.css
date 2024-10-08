@@ -15,7 +15,9 @@
   padding-top: 8px;
   padding-bottom: 9px;
   padding-left: 24px;
+  text-decoration: none;
 }
+
 
 .button {
   min-width: 80px;

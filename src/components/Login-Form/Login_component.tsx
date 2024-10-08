@@ -1,11 +1,11 @@
 import React, { FC, useState } from "react";
-import style from "../Form.module.css";
-import { Button } from "../../Controls/Button";
-import { Input } from "../../input";
-import { Preloader } from "../../preloader/Preloader";
+import style from "./LoginForm.module.css";
+import { Button } from "../Controls/Button";
+import { Input } from "../input";
+import { Preloader } from "../preloader/Preloader";
 import { useFormik, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import { useAuthStore } from "../../../store/auth/useAuthStore";
+import { useAuthStore } from "../../store/auth/useAuthStore";
 
 // Interface for form data
 interface LoginFormValues {
@@ -15,13 +15,15 @@ interface LoginFormValues {
 
 // Main Login form component
 export const LoginForm: FC = () => {
-  const { setUser, login } = useAuthStore();
+  const { setUser, login } = useAuthStore(); // Використання хука для управління станом користувача
 
+  // Початкові значення форми
   const initialValues: LoginFormValues = {
     email: "",
     password: "",
   };
 
+  // Схема валідації форми
   const validationSchema = Yup.object({
     email: Yup.string()
       .matches(
@@ -34,6 +36,7 @@ export const LoginForm: FC = () => {
       .required("Password is required"),
   });
 
+  // Використання useFormik для обробки форми
   const {
     values,
     errors,
@@ -51,8 +54,8 @@ export const LoginForm: FC = () => {
       { setFieldError }: FormikHelpers<LoginFormValues>
     ) => {
       try {
-        // Login logic
-        await login(values);
+        // Логіка входу
+        await login(values); // Викликаємо функцію login з переданими значеннями
         alert("Login successful!");
       } catch (error) {
         setFieldError("email", "Failed to login with the provided credentials");
@@ -62,7 +65,7 @@ export const LoginForm: FC = () => {
 
   return (
     <>
-      {false ? ( // Loading state
+      {false ? ( // Показувати Preloader, якщо стан завантаження
         <Preloader />
       ) : (
         <form className={style.form} onSubmit={handleSubmit}>
