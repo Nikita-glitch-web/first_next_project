@@ -5,12 +5,12 @@
 
 @media (max-width: 1024px) {
   .banner_content {
-    background-image: url("/public/images/Desktop-screen.png");
+    background-image: url("/images/Desktop-screen.png");
   }
 }
 
 .banner_content {
-  background-image: url("/public/images/LandingBanner.png");
+  background-image: url("/images/LandingBanner.png");
   width: 100%;
   height: 650px;
   display: flex;
@@ -54,7 +54,7 @@
 
 @media (max-width: 768px) {
   .banner_content {
-    background-image: url("/public/images/Mobile-screen.png");
+    background-image: url("/images/Mobile-screen.png");
   }
 
     .banner_text_box {
@@ -65,13 +65,13 @@
 
 @media (max-width: 350px) {
   .banner_content {
-    background-image: url("/public/images/Xs-screen.png");
+    background-image: url("/images/Xs-screen.png");
   }
 }
 
 @media (min-width: 1170px) {
   .banner_content {
-    background-image: url("/public/images/Large-screen.png");
+    background-image: url("/images/Large-screen.png");
   }
 
 }

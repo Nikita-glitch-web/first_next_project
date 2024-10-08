@@ -1,13 +1,11 @@
-/* eslint-disable @next/next/no-img-element */
-import React, { FC } from "react";
-import classNames from "classnames";
-import style from "../components/Form/Form.module.css";
-import { Button } from "../components/Controls/Button";
-import { Input } from "../components/Form/components/Input";
-import { Preloader } from "../components/Form/components/Preloader";
+import React, { FC, useState } from "react";
+import style from "./LoginForm.module.css";
+import { Button } from "../Controls/Button";
+import { Input } from "../input";
+import { Preloader } from "../preloader/Preloader";
 import { useFormik, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import useApiRequest from "../components/Form/useRequest";
+import { useAuthStore } from "../../store/auth/useAuthStore";
 
 // Interface for form data
 interface LoginFormValues {
@@ -17,20 +15,15 @@ interface LoginFormValues {
 
 // Main Login form component
 export const LoginForm: FC = () => {
-  const {
-    makeRequest: makePostRequest,
-    loading: postLoading,
-    error: postError,
-  } = useApiRequest<{ email: string; password: string }>(
-    "https://your-login-api-endpoint.com/login", // Replace with your login API endpoint
-    "POST"
-  );
+  const { setUser, login } = useAuthStore(); // Використання хука для управління станом користувача
 
+  // Початкові значення форми
   const initialValues: LoginFormValues = {
     email: "",
     password: "",
   };
 
+  // Схема валідації форми
   const validationSchema = Yup.object({
     email: Yup.string()
       .matches(
@@ -43,6 +36,7 @@ export const LoginForm: FC = () => {
       .required("Password is required"),
   });
 
+  // Використання useFormik для обробки форми
   const {
     values,
     errors,
@@ -60,9 +54,10 @@ export const LoginForm: FC = () => {
       { setFieldError }: FormikHelpers<LoginFormValues>
     ) => {
       try {
-        await makePostRequest(values); // Call POST request through hook
-        alert("Login successful!"); // Handle successful login
-      } catch {
+        // Логіка входу
+        await login(values); // Викликаємо функцію login з переданими значеннями
+        alert("Login successful!");
+      } catch (error) {
         setFieldError("email", "Failed to login with the provided credentials");
       }
     },
@@ -70,11 +65,11 @@ export const LoginForm: FC = () => {
 
   return (
     <>
-      {postLoading ? (
+      {false ? ( // Показувати Preloader, якщо стан завантаження
         <Preloader />
       ) : (
         <form className={style.form} onSubmit={handleSubmit}>
-          <h3 className={style.form_title}>Login</h3>
+          <h3 className={style.form_title}>Login here please!</h3>
           <div className={style.form_content_wrapper}>
             <Input
               id="email"
@@ -96,13 +91,13 @@ export const LoginForm: FC = () => {
               name="password"
               errorMessage={touched.password && errors.password}
             />
-            {postError && (
-              <div className={style.error_message}>{postError}</div>
+            {errors.email && (
+              <div className={style.error_message}>{errors.email}</div>
             )}
             <div className={style.form_btn_wrapper}>
               <Button
                 type="submit"
-                disabled={!isValid || !dirty || postLoading}
+                disabled={!isValid || !dirty}
                 className={style.btn_submit}
               >
                 Login

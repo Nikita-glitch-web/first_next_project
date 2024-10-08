@@ -1,31 +1,44 @@
-/* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect, useRef, ChangeEvent, FC } from "react";
 import classNames from "classnames";
-import style from "./Form.module.css";
+import style from "./signUpForm.module.css";
 import { Button } from "../Controls/Button";
-import { Input, InputMasked, RadioButton } from "./components";
-import { Preloader } from "./components";
+import { RadioButton } from "../radio/Radio";
+import { Input } from "../input/Input";
+import { Preloader } from "../preloader/Preloader";
+import { InputMasked } from "../input/InputMasked";
 import { useFormik, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import useImageValidation from "./useImageValidation";
-import useApiRequest from "./useRequest";
+import useImageValidation from "../../hooks/useImageValidation";
+import useApiRequest from "../../hooks/useRequest";
+import {
+  createUserWithEmailAndPassword,
+  UserCredential,
+  AuthError,
+  getAuth, // Додаємо getAuth з Firebase
+} from "firebase/auth";
+import { useAuthStore } from "../../store/auth/useAuthStore";
 
-// Интерфейс для данных формы
+// Ініціалізуємо Firebase auth
+const auth = getAuth();
+
+// Interface for form data
 interface FormValues {
   name: string;
   email: string;
   phone: string;
   position: string;
+  password: string;
+  confirmPassword: string;
   photo: File | null;
 }
 
-// Интерфейс для позиции
+// Interface for positon
 interface Position {
   id: string;
   name: string;
 }
 
-// Основной компонент формы
+// main form component
 export const UploadImageForm: FC = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [positions, setPositions] = useState<Position[]>([]);
@@ -33,7 +46,9 @@ export const UploadImageForm: FC = () => {
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const { imageError, fileName, handleFileChange } = useImageValidation({});
 
-  // Хук для POST запроса
+  const { setUser } = useAuthStore();
+
+  // Hook for post request
   const {
     makeRequest: makePostRequest,
     loading: postLoading,
@@ -43,7 +58,7 @@ export const UploadImageForm: FC = () => {
     "POST"
   );
 
-  // Хук для GET запроса
+  // Hook for get request
   const {
     makeRequest: makeGetRequest,
     loading: getLoading,
@@ -56,7 +71,7 @@ export const UploadImageForm: FC = () => {
   useEffect(() => {
     const fetchPositions = async () => {
       try {
-        const data = await makeGetRequest(); // Используем GET запрос через хук
+        const data = await makeGetRequest(); // Use get request with hook
         if (data.positions) {
           setPositions(data.positions);
           if (data.positions.length > 0) {
@@ -79,6 +94,8 @@ export const UploadImageForm: FC = () => {
     email: "",
     phone: "",
     position: selectedPosition,
+    password: "",
+    confirmPassword: "",
     photo: null,
   };
 
@@ -96,6 +113,12 @@ export const UploadImageForm: FC = () => {
       .min(3, "Телефон должен содержать минимум 3 символа")
       .required("Телефон обязателен"),
     position: Yup.string().required("Позиция обязательна"),
+    password: Yup.string()
+      .min(6, "Пароль должен быть минимум 6 символов")
+      .required("Пароль обязателен"),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("password")], "Пароли должны совпадать")
+      .required("Подтверждение пароля обязательно"),
     photo: Yup.mixed().required("Фото обязательно"),
   });
 
@@ -124,10 +147,19 @@ export const UploadImageForm: FC = () => {
       formData.append("photo", values.photo as Blob);
 
       try {
-        await makePostRequest(formData); // Вызов POST запроса через хук
+        const userCredential: UserCredential =
+          await createUserWithEmailAndPassword(
+            auth, // Замінили Auth на правильно ініціалізований об'єкт auth
+            values.email,
+            values.password // Using password for authentication
+          );
+        const user = userCredential.user;
+        setUser(user); // save user in Zustand
+        await makePostRequest(formData); // Call post request with hook
         setIsSuccess(true);
-      } catch {
-        setFieldError("photo", "Не удалось отправить данные");
+      } catch (error) {
+        const authError = error as AuthError;
+        setFieldError("email", authError.message || "Ошибка при регистрации");
       }
     },
   });
@@ -199,6 +231,26 @@ export const UploadImageForm: FC = () => {
               onBlur={handleBlur}
               name="phone"
               errorMessage={touched.phone && errors.phone}
+            />
+            <Input
+              id="password"
+              value={values.password}
+              type="password"
+              placeholder="Password"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              name="password"
+              errorMessage={touched.password && errors.password}
+            />
+            <Input
+              id="confirmPassword"
+              value={values.confirmPassword}
+              type="password"
+              placeholder="Confirm Password"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              name="confirmPassword"
+              errorMessage={touched.confirmPassword && errors.confirmPassword}
             />
             <div className={style.radio_wrapper}>
               <h2 className={style.radio_buttons__title}>
