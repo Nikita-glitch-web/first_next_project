@@ -1,11 +1,11 @@
 import React, { FC, useState } from "react";
 import style from "./LoginForm.module.css";
 import { Button } from "../Controls/Button";
-import { Input } from "../input";
-import { Preloader } from "../preloader/Preloader";
+import { Input } from "../Input";
+import { Preloader } from "../Preloader/index";
 import { useFormik, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import { useAuthStore } from "../../store/auth/useAuthStore";
+import { useAuthStore } from "../../Store/Auth/useAuthStore";
 
 // Interface for form data
 interface LoginFormValues {

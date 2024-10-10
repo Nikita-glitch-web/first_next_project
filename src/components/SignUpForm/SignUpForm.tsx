@@ -1,22 +1,23 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect, useRef, ChangeEvent, FC } from "react";
 import classNames from "classnames";
 import style from "./signUpForm.module.css";
 import { Button } from "../Controls/Button";
-import { RadioButton } from "../radio/Radio";
-import { Input } from "../input/Input";
-import { Preloader } from "../preloader/Preloader";
-import { InputMasked } from "../input/InputMasked";
+import { RadioButton } from "../Radio/Radio";
+import { Input } from "../Input/Input";
+import { Preloader } from "../Preloader/Preloader";
+import { InputMasked } from "../Input/InputMasked";
 import { useFormik, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import useImageValidation from "../../hooks/useImageValidation";
-import useApiRequest from "../../hooks/useRequest";
+import useImageValidation from "../../Hooks/useImageValidation";
+import useApiRequest from "../../Hooks/useRequest";
 import {
   createUserWithEmailAndPassword,
   UserCredential,
   AuthError,
   getAuth, // Додаємо getAuth з Firebase
 } from "firebase/auth";
-import { useAuthStore } from "../../store/auth/useAuthStore";
+import { useAuthStore } from "../../Store/Auth/useAuthStore";
 
 // Ініціалізуємо Firebase auth
 const auth = getAuth();

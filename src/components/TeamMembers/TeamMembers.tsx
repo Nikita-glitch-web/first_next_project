@@ -3,10 +3,10 @@
 import React, { FC, useState, useEffect } from "react";
 import classNames from "classnames";
 import style from "./TeamMembers.module.scss";
-import { Preloader } from "../preloader";
+import { Preloader } from "../Preloader";
 import { Button } from "../Controls/Button";
 
-interface TeamMember { 
+interface TeamMember {
   photo: string;
   name: string;
   position: string;
@@ -91,4 +91,3 @@ export const TeamMembers: FC = () => {
     </div>
   );
 };
-
