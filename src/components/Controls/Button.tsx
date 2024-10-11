@@ -9,7 +9,7 @@ interface ButtonProps {
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
   className?: string;
-  href?: string; // New prop to determine if it's a link
+  href?: string; // New prop to determine if it's dda link
 }
 
 export const Button: FC<ButtonProps> = ({
