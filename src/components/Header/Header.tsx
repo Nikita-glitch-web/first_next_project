@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import style from "./Header.module.css";
 import { Button } from "../Controls";
 import Link from "next/link";
-import { useAuthStore } from "@/Store/Auth";
+import { useAuthStore } from "@/store/auth";
 
 interface HeaderProps {}
 

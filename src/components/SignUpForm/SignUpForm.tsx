@@ -9,15 +9,16 @@ import { Preloader } from "../Preloader/Preloader";
 import { InputMasked } from "../Input/InputMasked";
 import { useFormik, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import useImageValidation from "../../Hooks/useImageValidation";
-import useApiRequest from "../../Hooks/useRequest";
+import useImageValidation from "../../hooks/useImageValidation";
+import useApiRequest from "../../hooks/useRequest";
 import {
   createUserWithEmailAndPassword,
   UserCredential,
   AuthError,
   getAuth, // Додаємо getAuth з Firebase
 } from "firebase/auth";
-import { useAuthStore } from "../../Store/Auth/useAuthStore";
+import { useAuthStore } from "../../store/auth/useAuthStore";
+import { confirmPasswordValidationRule, emailValidationRule, nameValidationRule, passwordValidationRule, photoValidationRule, positonValidationRule } from "@/utils/validationRules";
 
 // Ініціалізуємо Firebase auth
 const auth = getAuth();
@@ -40,7 +41,7 @@ interface Position {
 }
 
 // main form component
-export const UploadImageForm: FC = () => {
+export const SignUpForm:FC = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [positions, setPositions] = useState<Position[]>([]);
   const [selectedPosition, setSelectedPosition] = useState<string>("");
@@ -101,26 +102,13 @@ export const UploadImageForm: FC = () => {
   };
 
   const validationSchema = Yup.object({
-    name: Yup.string()
-      .min(3, "Имя должно содержать минимум 3 символа")
-      .required("Имя обязательно"),
-    email: Yup.string()
-      .matches(
-        /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,3}$/,
-        "Должно содержать '@' и доменное имя"
-      )
-      .required("Электронная почта обязательна"),
-    phone: Yup.string()
-      .min(3, "Телефон должен содержать минимум 3 символа")
-      .required("Телефон обязателен"),
-    position: Yup.string().required("Позиция обязательна"),
-    password: Yup.string()
-      .min(6, "Пароль должен быть минимум 6 символов")
-      .required("Пароль обязателен"),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password")], "Пароли должны совпадать")
-      .required("Подтверждение пароля обязательно"),
-    photo: Yup.mixed().required("Фото обязательно"),
+    name: nameValidationRule(),
+    email: emailValidationRule(),
+    phone: photoValidationRule(),
+    position: positonValidationRule(),
+    password: passwordValidationRule(),
+    confirmPassword: confirmPasswordValidationRule(), 
+    photo: photoValidationRule(),
   });
 
   const {
