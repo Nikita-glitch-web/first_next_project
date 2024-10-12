@@ -26,7 +26,7 @@ export const photoValidationRule = () => {
 };
 
 export const positonValidationRule = () => {
-  return Yup.string().required("You must choose position");
+  return Yup.string().required("You must choose your position");
 };
 
 export const phoneValidationRule = () => {
