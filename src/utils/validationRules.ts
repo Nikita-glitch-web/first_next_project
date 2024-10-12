@@ -31,7 +31,7 @@ export const positonValidationRule = () => {
 
 export const phoneValidationRule = () => {
   return Yup.string()
-    .min(3, "Phone must contains 9 symbols")
+    .min(3, "Phone must contains 9 or more symbols")
     .required("You must write a phone");
 };
 
