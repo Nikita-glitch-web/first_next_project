@@ -1,8 +1,8 @@
 import React, { FC, useState } from "react";
 import style from "./LoginForm.module.css";
 import { Button } from "../Controls/Button";
-import { Input } from "../InputTest";
-import { Preloader } from "../PreloaderTest/index";
+import { Input } from "../Input";
+import { Preloader } from "../Preloader/index";
 import { useFormik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { useAuthStore } from "../../store/auth/useAuthStore";
