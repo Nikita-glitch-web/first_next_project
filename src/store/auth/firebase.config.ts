@@ -1,7 +1,5 @@
 import { initializeApp } from "firebase/app";
-import {
-  getAuth,
-} from "firebase/auth";
+import { getAuth } from "firebase/auth";
 
 export const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -13,4 +11,7 @@ export const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp); // Імпортуємо Firebase auth
 
+export { firebaseApp, auth };

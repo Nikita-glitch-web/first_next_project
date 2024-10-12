@@ -31,12 +31,12 @@ export const positonValidationRule = () => {
 
 export const phoneValidationRule = () => {
   return Yup.string()
-    .min(3, "Телефон должен содержать минимум 3 символа")
-    .required("Телефон обязателен");
+    .min(3, "Phone must contains 9 symbols")
+    .required("You must write a phone");
 };
 
 export const nameValidationRule = () => {
     return Yup.string()
-        .min(3, "Имя должно содержать минимум 3 символа")
-        .required("Имя обязательно");
+        .min(3, "Name must contains 3 symbols")
+        .required("You must write name");
 }

@@ -5,11 +5,14 @@ import { Input } from "../Input";
 import { Preloader } from "../Preloader/index";
 import { useFormik, FormikHelpers } from "formik";
 import * as Yup from "yup";
+import img from "../../../public/images/Success.png";
+import Image from "next/image";
 import { useAuthStore } from "../../store/auth/useAuthStore";
 import {
   emailValidationRule,
   passwordValidationRule,
 } from "../../utils/validationRules";
+
 // Interface for form data
 interface LoginFormValues {
   email: string;
@@ -19,6 +22,7 @@ interface LoginFormValues {
 // Main Login form component
 export const LoginForm: FC = () => {
   const { setUser, login } = useAuthStore(); // Використання хука для управління станом користувача
+  const [isSuccess, setIsSuccess] = useState(false); // Додаємо стан для відстеження успішного входу
 
   // Початкові значення форми
   const initialValues: LoginFormValues = {
@@ -52,7 +56,7 @@ export const LoginForm: FC = () => {
       try {
         // Логіка входу
         await login(values); // Викликаємо функцію login з переданими значеннями
-        alert("Login successful!");
+        setIsSuccess(true); // Встановлюємо успішний стан після входу
       } catch (error) {
         setFieldError("email", "Failed to login with the provided credentials");
       }
@@ -61,8 +65,12 @@ export const LoginForm: FC = () => {
 
   return (
     <>
-      {false ? ( // Показувати Preloader, якщо стан завантаження
-        <Preloader />
+      {isSuccess ? (
+        <div className={style.success_message}>
+          <h3 className={style.success_title}>Login successful!</h3>
+          <p className={style.success_text}>Welcome back!</p>
+          <Image alt="" src={img} />
+        </div>
       ) : (
         <form className={style.form} onSubmit={handleSubmit}>
           <h3 className={style.form_title}>Login here please!</h3>
