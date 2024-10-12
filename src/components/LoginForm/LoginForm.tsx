@@ -1,12 +1,15 @@
 import React, { FC, useState } from "react";
 import style from "./LoginForm.module.css";
 import { Button } from "../Controls/Button";
-import { Input } from "../Input";
-import { Preloader } from "../Preloader/index";
+import { Input } from "../InputTest";
+import { Preloader } from "../PreloaderTest/index";
 import { useFormik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { useAuthStore } from "../../store/auth/useAuthStore";
-import { emailValidationRule, passwordValidationRule } from "../../utils/validationRules";
+import {
+  emailValidationRule,
+  passwordValidationRule,
+} from "../../utils/validationRules";
 // Interface for form data
 interface LoginFormValues {
   email: string;
@@ -25,8 +28,8 @@ export const LoginForm: FC = () => {
 
   // Схема валідації форми
   const validationSchema = Yup.object({
-  email: emailValidationRule(),
-   password: passwordValidationRule(),
+    email: emailValidationRule(),
+    password: passwordValidationRule(),
   });
 
   // Використання useFormik для обробки форми

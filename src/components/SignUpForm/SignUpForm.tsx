@@ -4,9 +4,9 @@ import classNames from "classnames";
 import style from "./signUpForm.module.css";
 import { Button } from "../Controls/Button";
 import { RadioButton } from "../Radio/Radio";
-import { Input } from "../Input/Input";
-import { Preloader } from "../Preloader/Preloader";
-import { InputMasked } from "../Input/InputMasked";
+import { Input } from "../InputTest/Input";
+import { Preloader } from "../PreloaderTest/Preloader";
+import { InputMasked } from "../InputTest/InputMasked";
 import { useFormik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import useImageValidation from "../../hooks/useImageValidation";
@@ -18,7 +18,14 @@ import {
   getAuth, // Додаємо getAuth з Firebase
 } from "firebase/auth";
 import { useAuthStore } from "../../store/auth/useAuthStore";
-import { confirmPasswordValidationRule, emailValidationRule, nameValidationRule, passwordValidationRule, photoValidationRule, positonValidationRule } from "@/utils/validationRules";
+import {
+  confirmPasswordValidationRule,
+  emailValidationRule,
+  nameValidationRule,
+  passwordValidationRule,
+  photoValidationRule,
+  positonValidationRule,
+} from "@/utils/validationRules";
 
 // Ініціалізуємо Firebase auth
 const auth = getAuth();
@@ -41,7 +48,7 @@ interface Position {
 }
 
 // main form component
-export const SignUpForm:FC = () => {
+export const SignUpForm: FC = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [positions, setPositions] = useState<Position[]>([]);
   const [selectedPosition, setSelectedPosition] = useState<string>("");
@@ -107,7 +114,7 @@ export const SignUpForm:FC = () => {
     phone: photoValidationRule(),
     position: positonValidationRule(),
     password: passwordValidationRule(),
-    confirmPassword: confirmPasswordValidationRule(), 
+    confirmPassword: confirmPasswordValidationRule(),
     photo: photoValidationRule(),
   });
 
