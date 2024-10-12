@@ -11,7 +11,7 @@ export const emailValidationRule = () => {
 
 export const passwordValidationRule = () => {
   return Yup.string()
-    .min(6, "Password must be at least 6 characters long")
+    .min(6, "Password must be at least 6 or more characters long")
     .required("Password is required");
 };
 
