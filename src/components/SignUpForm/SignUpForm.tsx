@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, ChangeEvent, FC } from "react";
 import classNames from "classnames";
 import style from "./signUpForm.module.css";
 import { Button } from "../Controls/Button";
-import { RadioButton } from "../Radio/Radio";
+import { RadioButton } from "../RadioButton/Radio";
 import { Input } from "../Input/Input";
 import { Preloader } from "../Preloader/Preloader";
 import { InputMasked } from "../Input/InputMasked";
