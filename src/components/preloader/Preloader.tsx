@@ -2,7 +2,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { FC } from "react";
 import styles from "./Preloader.module.scss";
-import img from "./Preloader.png";
+import img from "../../../public/images/Preloader.png";
 import Image from "next/image";
 interface PreloaderProps { };
 

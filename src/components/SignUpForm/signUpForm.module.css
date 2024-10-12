@@ -36,13 +36,11 @@
   background-color: #f5f5f5;
   border-radius: 5px;
   transition: background-color 0.3s ease;
-  
 }
 
 .upload_button:hover {
   background-color: #e0e0e0;
 }
-
 
 .image_input_wrapper {
   position: relative;
@@ -55,7 +53,6 @@
 .btn_register_wrapper {
   padding-top: 20px;
 }
-
 
 .image_preview {
   position: absolute;
@@ -90,11 +87,7 @@
   width: 100%;
   border-radius: 5px;
   padding-left: 10px;
-  
 }
-
-
-
 
 .form_input:nth-child(1) {
   margin-top: 25px;
@@ -120,7 +113,6 @@
   margin-bottom: 4px;
   margin-top: 38px;
 }
-
 
 .upload_button {
   background: white;
@@ -267,7 +259,7 @@
   border-top: 1px solid #000;
   border-bottom: 1px solid #000;
   border-top-right-radius: 0px;
-  border-bottom-right-radius:0px ;
+  border-bottom-right-radius: 0px;
   background-color: #fff;
   padding-right: 15px;
 }
@@ -280,8 +272,7 @@
   justify-content: center;
   overflow: hidden;
   position: relative;
-      padding-right: 66px;
-
+  padding-right: 66px;
 }
 
 .image_preview {
@@ -294,8 +285,6 @@
   color: #ccc;
 }
 
-
-
 .error_message {
   color: red;
   font-size: 12px;
@@ -307,17 +296,16 @@
   margin-top: 30px;
 }
 
-
 .file_name {
   color: #000;
 }
 
 .error_border {
-  border: 2px solid #CB3D40;
+  border: 2px solid #cb3d40;
 }
 
 .error_btn_input {
-  border-right: 2px solid #CB3D40;
+  border-right: 2px solid #cb3d40;
   border-radius: 0px;
   border-left: none;
   border-top: none;

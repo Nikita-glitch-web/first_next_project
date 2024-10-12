@@ -1,11 +1,12 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect, useRef, ChangeEvent, FC } from "react";
 import classNames from "classnames";
 import style from "./signUpForm.module.css";
 import { Button } from "../Controls/Button";
-import { RadioButton } from "../radio/Radio";
-import { Input } from "../input/Input";
-import { Preloader } from "../preloader/Preloader";
-import { InputMasked } from "../input/InputMasked";
+import { RadioButton } from "../Radio/Radio";
+import { Input } from "../Input/Input";
+import { Preloader } from "../Preloader/Preloader";
+import { InputMasked } from "../Input/InputMasked";
 import { useFormik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import useImageValidation from "../../hooks/useImageValidation";
@@ -17,6 +18,7 @@ import {
   getAuth, // Додаємо getAuth з Firebase
 } from "firebase/auth";
 import { useAuthStore } from "../../store/auth/useAuthStore";
+import { confirmPasswordValidationRule, emailValidationRule, nameValidationRule, passwordValidationRule, photoValidationRule, positonValidationRule } from "@/utils/validationRules";
 
 // Ініціалізуємо Firebase auth
 const auth = getAuth();
@@ -39,7 +41,7 @@ interface Position {
 }
 
 // main form component
-export const UploadImageForm: FC = () => {
+export const SignUpForm:FC = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [positions, setPositions] = useState<Position[]>([]);
   const [selectedPosition, setSelectedPosition] = useState<string>("");
@@ -100,26 +102,13 @@ export const UploadImageForm: FC = () => {
   };
 
   const validationSchema = Yup.object({
-    name: Yup.string()
-      .min(3, "Имя должно содержать минимум 3 символа")
-      .required("Имя обязательно"),
-    email: Yup.string()
-      .matches(
-        /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,3}$/,
-        "Должно содержать '@' и доменное имя"
-      )
-      .required("Электронная почта обязательна"),
-    phone: Yup.string()
-      .min(3, "Телефон должен содержать минимум 3 символа")
-      .required("Телефон обязателен"),
-    position: Yup.string().required("Позиция обязательна"),
-    password: Yup.string()
-      .min(6, "Пароль должен быть минимум 6 символов")
-      .required("Пароль обязателен"),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password")], "Пароли должны совпадать")
-      .required("Подтверждение пароля обязательно"),
-    photo: Yup.mixed().required("Фото обязательно"),
+    name: nameValidationRule(),
+    email: emailValidationRule(),
+    phone: photoValidationRule(),
+    position: positonValidationRule(),
+    password: passwordValidationRule(),
+    confirmPassword: confirmPasswordValidationRule(), 
+    photo: photoValidationRule(),
   });
 
   const {

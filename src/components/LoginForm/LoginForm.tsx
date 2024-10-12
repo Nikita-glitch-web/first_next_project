@@ -1,12 +1,12 @@
 import React, { FC, useState } from "react";
 import style from "./LoginForm.module.css";
 import { Button } from "../Controls/Button";
-import { Input } from "../input";
-import { Preloader } from "../preloader/Preloader";
+import { Input } from "../Input";
+import { Preloader } from "../Preloader/index";
 import { useFormik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { useAuthStore } from "../../store/auth/useAuthStore";
-
+import { emailValidationRule, passwordValidationRule } from "../../utils/validationRules";
 // Interface for form data
 interface LoginFormValues {
   email: string;
@@ -25,15 +25,8 @@ export const LoginForm: FC = () => {
 
   // Схема валідації форми
   const validationSchema = Yup.object({
-    email: Yup.string()
-      .matches(
-        /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,3}$/,
-        "Must contain '@' and a domain name"
-      )
-      .required("Email is required"),
-    password: Yup.string()
-      .min(6, "Password must be at least 6 characters long")
-      .required("Password is required"),
+  email: emailValidationRule(),
+   password: passwordValidationRule(),
   });
 
   // Використання useFormik для обробки форми
