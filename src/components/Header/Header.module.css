@@ -85,3 +85,9 @@
     padding-left: 10px;
   }
 }
+
+
+.user_avatar {
+  width: 30px;
+  height: 28px;
+}
