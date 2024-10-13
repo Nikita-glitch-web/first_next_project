@@ -29,6 +29,13 @@ export const Header: FC<HeaderProps> = () => {
           </div>
           {user ? (
             <div className={style.user_info_wrapper}>
+              <div>
+                <div className={style.header_btn_wrapper}>
+                  <Link className={style.button_cabinet} href="/usercabinet">
+                    Cabinet
+                  </Link>
+                </div>
+              </div>
               <div className={style.header_avatar_wrapper}>
                 <Image
                   src={img} // Заміна на аватар користувача

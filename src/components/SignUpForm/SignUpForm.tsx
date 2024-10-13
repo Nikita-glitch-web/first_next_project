@@ -89,7 +89,7 @@ export const SignUpForm: FC = () => {
       {isSuccess ? (
         <div className={style.success_screen}>
                   <h4 className={style.success_title}>Thank you for registration</h4>
-                  <Image alt="" src={img}/>
+          <Image className={style.success_img} alt="" src={img}/>
         </div>
       ) : (
         <form className={style.form} id="signUpForm" onSubmit={handleSubmit}>

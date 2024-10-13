@@ -175,7 +175,8 @@ export const JoinUsForm: FC = () => {
             className={style.success_img}
           />
         </div>
-      ) : (
+        ) : (
+            
         <form className={style.form} id="signUpForm" onSubmit={handleSubmit}>
           <h3 className={style.form_title}>Working with POST request</h3>
           <div className={style.form_content_wrapper}>

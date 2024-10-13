@@ -73,9 +73,39 @@
   margin-right: 10px;
 }
 
+.button_cabinet {
+  margin-left: 10px;
+   min-width: 80px;
+  padding: 4px 22px;
+  background: var(--primary-color);
+  color: var(--text-color);
+  text-align: center;
+  border-radius: 80px;
+  line-height: 26px;
+  border: none;
+  text-decoration: none;
+}
+
+.header_content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.user_info_wrapper {
+  display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .header_nav_wrapper {
   display: flex;
-  padding-right: 24px;
+  padding-right: 24px;    flex-direction: row;
+    align-items: center;
+}
+
+.user_email {
+  padding-left: 10px;
 }
 
 @media (max-width: 768px) {

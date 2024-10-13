@@ -211,6 +211,11 @@
   text-align: center;
 }
 
+.success_img {
+  width: 300px;
+  height: 300px;
+}
+
 .custom_radio .radio_button {
   display: inline-block;
   width: 20px;
