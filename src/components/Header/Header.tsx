@@ -5,7 +5,7 @@ import { Button } from "../Controls";
 import Link from "next/link";
 import { useAuthStore } from "@/store/auth";
 import Image from "next/image";
-import img from "../../../public/images/avatar.png"
+import img from "../../../public/images/avatar.png";
 
 interface HeaderProps {}
 
@@ -28,12 +28,17 @@ export const Header: FC<HeaderProps> = () => {
             </Button>
           </div>
           {user ? (
-            <div className={style.header_avatar_wrapper}>
-              <Image
-                src={img} // Заміна на аватар користувача
-                alt="User Avatar"
-                className={style.user_avatar}
-              />
+            <div className={style.user_info_wrapper}>
+              <div className={style.header_avatar_wrapper}>
+                <Image
+                  src={img} // Заміна на аватар користувача
+                  alt="User Avatar"
+                  className={style.user_avatar}
+                />
+              </div>
+              <div>
+                <p className={style.user_email}>{user.email}</p>
+              </div>
             </div>
           ) : (
             <>

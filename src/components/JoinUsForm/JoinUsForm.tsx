@@ -209,26 +209,6 @@ export const JoinUsForm: FC = () => {
               name="phone"
               errorMessage={touched.phone && errors.phone}
             />
-            <Input
-              id="password"
-              value={values.password}
-              type="password"
-              placeholder="Password"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              name="password"
-              errorMessage={touched.password && errors.password}
-            />
-            <Input
-              id="confirmPassword"
-              value={values.confirmPassword}
-              type="password"
-              placeholder="Confirm Password"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              name="confirmPassword"
-              errorMessage={touched.confirmPassword && errors.confirmPassword}
-            />
             <div className={style.radio_wrapper}>
               <h2 className={style.radio_buttons__title}>
                 Select your position

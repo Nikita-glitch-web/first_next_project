@@ -24,7 +24,8 @@ export const useAuthStore = create<IAuthStore>((set) => ({
   setUser: (user: any) => set({ user }),
 
   login: async ({ email, password }: IAuthCredentials) => {
-    const { user } = await signInWithEmailAndPassword(auth, email, password); // Використовуємо об'єкт auth
+    const { user } = await signInWithEmailAndPassword(auth, email, password);
+    console.log(user)
     set({ user });
   },
 

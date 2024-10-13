@@ -311,29 +311,3 @@
   border-top: none;
   border-bottom: none;
 }
-
-.success_title {
-  font-size: 40px;
-  font-weight: 400;
-  line-height: 40px;
-  text-align: center;
-}
-
-.success_text {
-  font-size: 25px;
-  font-weight: 400;
-  line-height: 40px;
-  text-align: center;
-}
-
-.success_img {
-  width: 300px;
-  height: 300px;
-}
-
-.success_message {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-}

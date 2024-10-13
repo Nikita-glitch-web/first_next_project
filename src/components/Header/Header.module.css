@@ -66,6 +66,7 @@
 .header_logo_text {
   font-size: var(--font-size-regular);
   font-weight: 400;
+  color: black;
 }
 
 .header_btn_wrapper:nth-child(1) {
@@ -91,3 +92,4 @@
   width: 30px;
   height: 28px;
 }
+

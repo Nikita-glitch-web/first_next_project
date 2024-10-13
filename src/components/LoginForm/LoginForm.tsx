@@ -69,7 +69,7 @@ export const LoginForm: FC = () => {
         <div className={style.success_message}>
           <h3 className={style.success_title}>Login successful!</h3>
           <p className={style.success_text}>Welcome back!</p>
-          <Image alt="" src={img} />
+          <Image className={style.success_img} alt="" src={img} />
         </div>
       ) : (
         <form className={style.form} onSubmit={handleSubmit}>
