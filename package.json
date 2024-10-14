@@ -13,6 +13,7 @@
     "classnames": "^2.5.1",
     "firebase": "^10.13.1",
     "firebase-functions": "^6.0.1",
+    "firestore": "^1.1.6",
     "formik": "^2.4.6",
     "next": "^14.2.6",
     "react": "^18",

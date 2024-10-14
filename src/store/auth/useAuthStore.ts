@@ -1,10 +1,7 @@
+// useAuthStore.ts
 import { create } from "zustand";
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  User,
-} from "firebase/auth";
-import { auth } from "./firebase.config";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, User } from "firebase/auth";
+import { auth, db } from "./firebase.config"; // Імпортуємо auth та db з firebase.config
 
 interface IAuthStore {
   user: User | null;
@@ -24,16 +21,15 @@ export const useAuthStore = create<IAuthStore>((set) => ({
   setUser: (user: any) => set({ user }),
 
   login: async ({ email, password }: IAuthCredentials) => {
-    const { user } = await signInWithEmailAndPassword(auth, email, password); // Використовуємо об'єкт auth
+    const { user } = await signInWithEmailAndPassword(auth, email, password);
     set({ user });
   },
 
   signUp: async ({ email, password }: IAuthCredentials) => {
-    const { user } = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    ); // Використовуємо об'єкт auth
+    const { user } = await createUserWithEmailAndPassword(auth, email, password);
     set({ user });
   },
 }));
+
+// Експортуємо db для використання в інших файлах
+export { db };

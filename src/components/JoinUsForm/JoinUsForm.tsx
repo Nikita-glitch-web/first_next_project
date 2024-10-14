@@ -18,9 +18,8 @@ import {
   passwordValidationRule,
   photoValidationRule,
   positonValidationRule,
-  phoneValidationRule
+  phoneValidationRule,
 } from "@/utils/validationRules";
-
 
 // Interface for form data
 interface FormValues {
@@ -46,7 +45,6 @@ export const JoinUsForm: FC = () => {
   const [selectedPosition, setSelectedPosition] = useState<string>("");
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const { imageError, fileName, handleFileChange } = useImageValidation({});
-
 
   // Hook for post request
   const {
