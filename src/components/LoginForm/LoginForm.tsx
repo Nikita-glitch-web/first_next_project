@@ -65,12 +65,8 @@ export const LoginForm: FC = () => {
 
   return (
     <>
-      {isSuccess ? (
-        <div className={style.success_message}>
-          <h3 className={style.success_title}>Login successful!</h3>
-          <p className={style.success_text}>Welcome back!</p>
-          <Image className={style.success_img} alt="" src={img} />
-        </div>
+      {false ? ( // Показувати Preloader, якщо стан завантаження
+        <Preloader />
       ) : (
         <form className={style.form} onSubmit={handleSubmit}>
           <h3 className={style.form_title}>Login here please!</h3>

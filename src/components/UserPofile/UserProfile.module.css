@@ -23,7 +23,6 @@
   width: 100%;
 }
 
-/* src/components/Form/components/Form.module.css */
 .upload_container {
   display: flex;
   align-items: center;
@@ -165,23 +164,6 @@
   background: #5e5e5e;
 }
 
-.checkbox_title {
-  margin-bottom: 15px;
-}
-
-.custom_radio {
-  display: flex;
-  align-items: flex-start;
-  cursor: pointer;
-  font-size: var(--font-size-regular);
-  margin-bottom: 10px;
-  margin-top: 10px;
-}
-
-.custom_radio input[type="radio"] {
-  display: none;
-}
-
 .btn_wrapper {
   display: flex;
   justify-content: center;
@@ -189,19 +171,9 @@
   margin-bottom: 10px;
 }
 
-.success_img {
-  width: 328px;
-  height: 290px;
-}
-
 .input_error {
   border: 2px solid #cb3d40;
   color: #cb3d40;
-}
-
-.radio_wrapper {
-  display: flex;
-  flex-direction: column;
 }
 
 .success_screen {
@@ -217,41 +189,6 @@
   font-weight: 400;
   line-height: 40px;
   text-align: center;
-}
-
-.custom_radio .radio_button {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 2px solid #00f;
-  margin-right: 10px;
-  position: relative;
-  transition: all 0.3s ease;
-}
-
-.custom_radio input[type="radio"]:checked + .radio_button {
-  border-color: #00f;
-  background-color: #00f;
-}
-
-.custom_radio .radio_button::after {
-  content: "";
-  display: block;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #00f;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  transition: all 0.3s ease;
-}
-
-.custom_radio input[type="radio"]:checked + .radio_button::after {
-  opacity: 1;
 }
 
 .upload_container {

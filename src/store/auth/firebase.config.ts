@@ -14,12 +14,13 @@ export const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-// Ініціалізуємо Firebase додаток
-const firebaseApp = initializeApp(firebaseConfig);
+// Ініціалізація Firebase App
+const app = initializeApp(firebaseConfig);
 
-// Ініціалізуємо Firebase Authentication і Firestore
-const auth = getAuth(firebaseApp); // Firebase auth
-const db = getFirestore(firebaseApp); // Firestore DB
+// Ініціалізація Firebase Auth
+export const auth = getAuth(app);
 
-// Експортуємо Firebase додаток, auth і db
-export { firebaseApp, auth, db };
+// Ініціалізація Firebase Firestore
+export const db = getFirestore(app);
+
+
