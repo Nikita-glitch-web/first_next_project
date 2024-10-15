@@ -26,13 +26,13 @@ export const Header: FC<HeaderProps> = () => {
             </Button>
           </div>
           {user ? (
-            <div className={style.header_avatar_wrapper}>
+            <Link href="/userprofile" className={style.header_avatar_wrapper}>
               <img
                 src={"/images/avatar.png"}
                 alt="User Avatar"
                 className={style.user_avatar}
               />
-            </div>
+            </Link>
           ) : (
             <>
               <div className={style.header_btn_wrapper}>

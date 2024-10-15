@@ -3,7 +3,7 @@ import style from "../components/UserPofile/UserProfile"
 
 export default function UserProfile() {
   return (
-    <div>
+    <div className={'page_wrapper'}>
       <UpdateProfile />
     </div>
   );

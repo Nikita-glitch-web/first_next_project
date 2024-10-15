@@ -4,9 +4,9 @@ import { useAuthStore } from "@/store/auth";
 import { Button } from "../Controls/Button";
 import { InputMasked } from "../Input/InputMasked";
 import { Preloader } from "../Preloader/Preloader";
-import style from "./UserCabinet.module.css";
+import style from "./UserProfile.module.css";
 import classNames from "classnames";
-import { useUpdateProfile } from "../../hooks/useProfileUpdate";
+import { useUpdateProfile } from "./hooks/useProfileUpdate";
 import { useFileUpload } from "../../hooks/useFileUpload";
 import { usePhoneNumber } from "../../hooks/usePhoneNumber";
 
@@ -15,7 +15,7 @@ export const UpdateProfile: React.FC = () => {
   const router = useRouter();
 
   const { loading, successMessage, errorMessage, handleUpdateProfile } =
-    useUpdateProfile(user);
+    useUpdateProfile();
   const { phoneNumber, handlePhoneNumberChange } = usePhoneNumber(
     user?.phoneNumber || ""
   );

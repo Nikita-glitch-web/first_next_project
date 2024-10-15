@@ -65,7 +65,7 @@ export const LoginForm: FC = () => {
 
   return (
     <>
-      {isSuccess ? ( // Показувати Preloader, якщо стан завантаження
+      {false ? ( // Показувати Preloader, якщо стан завантаження
         <Preloader />
       ) : (
         <form className={style.form} onSubmit={handleSubmit}>
