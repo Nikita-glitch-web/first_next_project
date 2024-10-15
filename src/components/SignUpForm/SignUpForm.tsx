@@ -9,12 +9,17 @@ import {
   getAuth,
 } from "firebase/auth";
 import Image from "next/image";
-import img from "../../../public/images/Success.png"
+import img from "../../../public/images/Success.png";
 import { useAuthStore } from "../../store/auth/useAuthStore";
 import { Input } from "../Input/Input";
 import { Button } from "../Controls/Button";
-import style from "./signUpForm.module.css";
-import { emailValidationRule, passwordValidationRule, nameValidationRule, confirmPasswordValidationRule } from "../../utils/validationRules";
+import style from "./SignUpForm.module.css";
+import {
+  emailValidationRule,
+  passwordValidationRule,
+  nameValidationRule,
+  confirmPasswordValidationRule,
+} from "../../utils/validationRules";
 
 // Ініціалізуємо Firebase auth
 const auth = getAuth();
@@ -40,12 +45,12 @@ export const SignUpForm: FC = () => {
   };
 
   // Validation schema using Yup
- const validationSchema = Yup.object({
-   name: nameValidationRule(),
-   email: emailValidationRule(),
-   password: passwordValidationRule(),
-   confirmPassword: confirmPasswordValidationRule(),
- });
+  const validationSchema = Yup.object({
+    name: nameValidationRule(),
+    email: emailValidationRule(),
+    password: passwordValidationRule(),
+    confirmPassword: confirmPasswordValidationRule(),
+  });
 
   // Formik hook
   const {
@@ -90,7 +95,7 @@ export const SignUpForm: FC = () => {
         <div className={style.success_screen}>
           <h4 className={style.success_title}>User successfully registered</h4>
           <img
-            src={"./images/Success.png"}
+            src={"/images/Success.png"}
             alt="Success"
             className={style.success_img}
           />

@@ -28,7 +28,7 @@ export const Header: FC<HeaderProps> = () => {
           {user ? (
             <div className={style.header_avatar_wrapper}>
               <img
-                src={user.photoURL || "./public/images/avatar"} // Заміна на аватар користувача
+                src={"/images/avatar.png"}
                 alt="User Avatar"
                 className={style.user_avatar}
               />

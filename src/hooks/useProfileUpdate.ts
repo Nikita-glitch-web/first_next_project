@@ -4,6 +4,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../store/auth/useAuthStore";
 import { User } from "firebase/auth";
 
+//перенести звідси код в useAuthStore
 export const useUpdateProfile = (user: User | null) => {
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -26,7 +27,9 @@ export const useUpdateProfile = (user: User | null) => {
           phoneNumber, // Оновлюємо номер телефону у Firestore
         });
 
-        setSuccessMessage("Success! You have successfully updated your profile.");
+        setSuccessMessage(
+          "Success! You have successfully updated your profile."
+        );
       }
     } catch (error) {
       console.error("Error updating profile:", error);

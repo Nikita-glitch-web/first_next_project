@@ -14,9 +14,19 @@ export const UpdateProfile: React.FC = () => {
   const { user } = useAuthStore();
   const router = useRouter();
 
-  const { loading, successMessage, errorMessage, handleUpdateProfile } = useUpdateProfile(user);
-  const { phoneNumber, handlePhoneNumberChange } = usePhoneNumber(user?.phoneNumber || "");
-  const { fileInputRef, fileName, imageError, handleFileInputChange, handleUpload, getShortFileName } = useFileUpload();
+  const { loading, successMessage, errorMessage, handleUpdateProfile } =
+    useUpdateProfile(user);
+  const { phoneNumber, handlePhoneNumberChange } = usePhoneNumber(
+    user?.phoneNumber || ""
+  );
+  const {
+    fileInputRef,
+    fileName,
+    imageError,
+    handleFileInputChange,
+    handleUpload,
+    getShortFileName,
+  } = useFileUpload();
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -25,7 +35,7 @@ export const UpdateProfile: React.FC = () => {
 
   useEffect(() => {
     if (!user) {
-      router.push("/403"); 
+      router.push("/403");
     }
   }, [user, router]);
 
@@ -42,12 +52,14 @@ export const UpdateProfile: React.FC = () => {
               value={phoneNumber}
               onChange={handlePhoneNumberChange}
               type="tel"
-              placeholder="Enter your phone number" 
-              errorMessage={undefined} 
-              name={""} 
-              onBlur={function (event: React.FocusEvent<HTMLInputElement>): void {
+              placeholder="Enter your phone number"
+              errorMessage={errorMessage}
+              name={""}
+              onBlur={function (
+                event: React.FocusEvent<HTMLInputElement>
+              ): void {
                 throw new Error("Function not implemented.");
-              }} 
+              }}
             />
           </div>
 
@@ -56,7 +68,11 @@ export const UpdateProfile: React.FC = () => {
               [style.error_border]: imageError,
             })}
           >
-            <button type="button" onClick={handleUpload} className={classNames(style.upload_button)}>
+            <button
+              type="button"
+              onClick={handleUpload}
+              className={classNames(style.upload_button)}
+            >
               Upload
             </button>
             <input
@@ -70,7 +86,9 @@ export const UpdateProfile: React.FC = () => {
             <div className={style.image_preview_container}>
               {fileName ? getShortFileName(fileName) : "Upload your photo"}
             </div>
-            {imageError && <div className={style.error_message}>{imageError}</div>}
+            {imageError && (
+              <div className={style.error_message}>{imageError}</div>
+            )}
           </div>
 
           <div className={style.form_btn_wrapper}>

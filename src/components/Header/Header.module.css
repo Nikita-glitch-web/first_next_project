@@ -75,7 +75,7 @@
 
 .button_cabinet {
   margin-left: 10px;
-   min-width: 80px;
+  min-width: 80px;
   padding: 4px 22px;
   background: var(--primary-color);
   color: var(--text-color);
@@ -94,14 +94,15 @@
 
 .user_info_wrapper {
   display: flex;
-    flex-direction: row;
-    align-items: center;
+  flex-direction: row;
+  align-items: center;
 }
 
 .header_nav_wrapper {
   display: flex;
-  padding-right: 24px;    flex-direction: row;
-    align-items: center;
+  padding-right: 24px;
+  flex-direction: row;
+  align-items: center;
 }
 
 .user_email {
@@ -117,9 +118,7 @@
   }
 }
 
-
 .user_avatar {
   width: 30px;
   height: 28px;
 }
-
