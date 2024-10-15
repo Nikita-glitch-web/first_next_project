@@ -49,12 +49,12 @@
 }
 
 .input_error {
-  border: 2px solid ;
-  color: #cb3d40;
+  border: 2px solid var(--error-color);
+  color: var(--error-color);
 }
 
 .error_message {
-  color: red;
+  color: var(--error-color);
   font-size: 12px;
   text-align: left;
   margin-left: 2px;
