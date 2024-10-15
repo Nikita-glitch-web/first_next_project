@@ -32,111 +32,35 @@
   padding: 10px 20px;
   margin-right: 10px;
   cursor: pointer;
-  border: 1px solid #ddd;
-  background-color: #f5f5f5;
+  border: 1px solid var(--btn-border-color);
+  background-color: var(--btn-background-color);
   border-radius: 5px;
   transition: background-color 0.3s ease;
 }
 
 .upload_button:hover {
-  background-color: #e0e0e0;
+  background-color: var(--upload-btn-hover);
 }
 
-.image_input_wrapper {
-  position: relative;
-  width: 200px;
-  height: 200px;
-  border: 1px solid #ddd;
+.image_preview_container {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
-}
-
-.btn_register_wrapper {
-  padding-top: 20px;
+  position: relative;
 }
 
 .image_preview {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
 }
 
-.radio_buttons__title {
-  font-size: 16px;
-  padding-top: 20px;
-  font-weight: 400;
-  line-height: 14px;
-}
-
-.title {
-    font-size: 24px;
-  padding-top: 20px;
-  font-weight: 400;
-  line-height: 14px;
-}
-
-.form_label {
-  width: 100%;
-}
-
-.form_input,
-.form_input_last,
-.img_input {
-  height: 54px;
-  color: var(--input-placeholder-color);
-  background: white;
-  border: 1px solid var(--input-placeholder-color);
-  font-size: var(--font-size-regular);
-  font-weight: 400;
-  line-height: 26px;
-  width: 100%;
-  border-radius: 5px;
-  padding-left: 10px;
-}
-
-.form_input:nth-child(1) {
-  margin-top: 25px;
-  margin-bottom: 25px;
-}
-
-.form_input_last {
-  margin-bottom: 50px;
-  margin-top: 25px;
-}
-
-.upload_container {
-  display: flex;
-  align-items: center;
-  height: 54px;
-  color: var(--input-placeholder-color);
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 100%;
-  overflow: hidden;
-  box-sizing: border-box;
-  margin-bottom: 4px;
-  margin-top: 38px;
-}
-
-.upload_button {
-  background: white;
-  color: black;
-  border: none;
-  height: 100%;
-  padding: 0 20px;
-  cursor: pointer;
-  font-size: var(--font-size-regular);
-  font-weight: 400;
-  border-radius: 4px;
-  border: 1px solid black;
-  border-right: 1px solid black;
-}
-
-.upload_button:hover {
-  background: #f1f1f1;
+.error_message {
+  color: var(--error-color);
+  font-size: 12px;
+  text-align: left;
+  margin-left: 2px;
 }
 
 .form_btn_wrapper {
@@ -161,109 +85,14 @@
 }
 
 .submit_btn:hover {
-  background: #5e5e5e;
-}
-
-.btn_wrapper {
-  display: flex;
-  justify-content: center;
-  margin-top: 30px;
-  margin-bottom: 10px;
+  background: var(--submit-btn-hover);
 }
 
 .input_error {
-  border: 2px solid #cb3d40;
-  color: #cb3d40;
-}
-
-.success_screen {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  padding-bottom: 30px;
-}
-
-.success_title {
-  font-size: 40px;
-  font-weight: 400;
-  line-height: 40px;
-  text-align: center;
-}
-
-.upload_container {
-  display: flex;
-  align-items: center;
-}
-
-.upload_button {
-  padding: 10px;
-  padding-left: 15px;
-  cursor: pointer;
-  border-left: 1px solid #000;
-  border-top: 1px solid #000;
-  border-bottom: 1px solid #000;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-  background-color: #fff;
-  padding-right: 15px;
-}
-
-.image_preview_container {
-  margin-left: 10px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  position: relative;
-  padding-right: 66px;
-}
-
-.image_preview {
-  max-width: 100%;
-  max-height: 100%;
-  display: none;
-}
-
-.placeholder {
-  color: #ccc;
-}
-
-.error_message {
-  color: red;
-  font-size: 12px;
-  text-align: left;
-  margin-left: 2px;
-}
-
-.btn_wrapper {
-  margin-top: 30px;
-}
-
-.file_name {
-  color: #000;
+  border: 2px solid var(--error-color);
+  color: var(--error-color);
 }
 
 .error_border {
-  border: 2px solid #cb3d40;
-}
-
-.error_btn_input {
-  border-right: 2px solid #cb3d40;
-  border-radius: 0px;
-  border-left: none;
-  border-top: none;
-  border-bottom: none;
-}
-
-
-.profile_wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.text {
-    text-align: center;
+  border: 2px solid var(--error-color);
 }
