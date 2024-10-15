@@ -9,6 +9,6 @@ export interface InputProps {
   name: string;
   type: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  onBlur: (event: FocusEvent<HTMLInputElement>) => void;
+  onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
   tooltip?: string;
 }

@@ -29,6 +29,7 @@ export const useAuthStore = create<IAuthStore>((set, get) => ({
 
   login: async ({ email, password }: IAuthCredentials) => {
     const { user } = await signInWithEmailAndPassword(auth, email, password);
+    console.log(user);
     set({ user });
   },
 
@@ -43,7 +44,7 @@ export const useAuthStore = create<IAuthStore>((set, get) => ({
 
   updateUserProfile: async ({ phoneNumber }: { phoneNumber: string }) => {
     const currentUser = get().user as User;
-
+    console.log(phoneNumber)
     // Оновлюємо номер телефону у Firestore
     const userDocRef = doc(db, 'users', currentUser.uid); // Отримуємо документ користувача
     await updateDoc(userDocRef, {
@@ -51,3 +52,4 @@ export const useAuthStore = create<IAuthStore>((set, get) => ({
     });
   },
 }));
+

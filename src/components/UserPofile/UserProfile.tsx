@@ -55,11 +55,6 @@ export const UpdateProfile: React.FC = () => {
               placeholder="Enter your phone number"
               errorMessage={errorMessage}
               name={""}
-              onBlur={function (
-                event: React.FocusEvent<HTMLInputElement>
-              ): void {
-                throw new Error("Function not implemented.");
-              }}
             />
           </div>
 
