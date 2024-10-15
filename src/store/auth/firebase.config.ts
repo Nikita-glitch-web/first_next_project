@@ -1,6 +1,9 @@
+// firebaseConfig.ts
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
+// Firebase configuration з використанням змінних середовища (env)
 export const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -11,7 +14,13 @@ export const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
-const auth = getAuth(firebaseApp); // Імпортуємо Firebase auth
+// Ініціалізація Firebase App
+const app = initializeApp(firebaseConfig);
 
-export { firebaseApp, auth };
+// Ініціалізація Firebase Auth
+export const auth = getAuth(app);
+
+// Ініціалізація Firebase Firestore
+export const db = getFirestore(app);
+
+
