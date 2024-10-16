@@ -14,6 +14,12 @@ pnpm dev
 bun dev
 
 ```
+
+Завдання
+1 На логін додати сексес імедж і редерікт на профайлЮзера
+2 На профайле виводить данні які я ввів через інпут signUp та Login
+3 Додати стилі для 403 пейджі
+
 base
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
