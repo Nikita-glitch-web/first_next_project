@@ -5,8 +5,9 @@ const Custom403 = () => {
     <div className={style.error_wrapper}>
       <h1 className={style.error_title}>403 - Access Denied</h1>
       <p className={style.error_text}>
-        You do not have permission to view this page. Please login first
+        You do not have permission to view this page.
       </p>
+      <p className={style.error_text}>Please login first</p>
     </div>
   );
 };
