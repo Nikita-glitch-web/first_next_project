@@ -1,6 +1,5 @@
 import React, { FC, useState } from "react";
 import style from "./LoginForm.module.css";
-import { Button } from "../Controls/Button";
 import { Input } from "../Input";
 import { Preloader } from "../Preloader/index";
 import { useFormik, FormikHelpers } from "formik";
@@ -12,6 +11,8 @@ import {
   emailValidationRule,
   passwordValidationRule,
 } from "../../utils/validationRules";
+import Link from "next/link";
+import { Button } from "../Controls/Button";
 
 // Interface for form data
 interface LoginFormValues {
@@ -68,43 +69,55 @@ export const LoginForm: FC = () => {
       {false ? ( // Показувати Preloader, якщо стан завантаження
         <Preloader />
       ) : (
-        <form className={style.form} onSubmit={handleSubmit}>
-          <h3 className={style.form_title}>Login here please!</h3>
-          <div className={style.form_content_wrapper}>
-            <Input
-              id="email"
-              value={values.email}
-              type="email"
-              placeholder="Email"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              name="email"
-              errorMessage={touched.email && errors.email}
-            />
-            <Input
-              id="password"
-              value={values.password}
-              type="password"
-              placeholder="Password"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              name="password"
-              errorMessage={touched.password && errors.password}
-            />
-            {errors.email && (
-              <div className={style.error_message}>{errors.email}</div>
-            )}
-            <div className={style.form_btn_wrapper}>
-              <Button
-                type="submit"
-                disabled={!isValid || !dirty}
-                className={style.btn_submit}
-              >
-                Login
-              </Button>
+        <>
+          {isSuccess ? ( // Якщо логін успішний, показуємо лише повідомлення
+            <div className={style.success_message}>
+              <h4 className={style.success_title}>Thank you for logging in!</h4>
+              <Image className={style.success_img} src={img} alt="Success" />
+              <Link href="/userprofile" className={style.success_link}>
+                <Button className={style.button}>Your profile</Button>
+              </Link>
             </div>
-          </div>
-        </form>
+          ) : (
+            <form className={style.form} onSubmit={handleSubmit}>
+              <h3 className={style.form_title}>Login here please!</h3>
+              <div className={style.form_content_wrapper}>
+                <Input
+                  id="email"
+                  value={values.email}
+                  type="email"
+                  placeholder="Email"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  name="email"
+                  errorMessage={touched.email && errors.email}
+                />
+                <Input
+                  id="password"
+                  value={values.password}
+                  type="password"
+                  placeholder="Password"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  name="password"
+                  errorMessage={touched.password && errors.password}
+                />
+                {errors.email && (
+                  <div className={style.error_message}>{errors.email}</div>
+                )}
+                <div className={style.form_btn_wrapper}>
+                  <Button
+                    type="submit"
+                    disabled={!isValid || !dirty}
+                    className={style.btn_submit}
+                  >
+                    Login
+                  </Button>
+                </div>
+              </div>
+            </form>
+          )}
+        </>
       )}
     </>
   );
