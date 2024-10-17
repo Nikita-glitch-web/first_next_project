@@ -13,7 +13,7 @@ import img from "../../../public/images/Success.png";
 import { useAuthStore } from "../../store/auth/useAuthStore";
 import { Input } from "../Input/Input";
 import { Button } from "../Controls/Button";
-import style from "./SignUpForm.module.css";
+import style from "./SignUpForm.module.scss";
 import {
   emailValidationRule,
   passwordValidationRule,
