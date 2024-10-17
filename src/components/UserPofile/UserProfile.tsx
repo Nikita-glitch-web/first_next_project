@@ -4,7 +4,7 @@ import { useAuthStore } from "@/store/auth";
 import { Button } from "../Controls/Button";
 import { InputMasked } from "../Input/InputMasked";
 import { Preloader } from "../Preloader/Preloader";
-import style from "./UserProfile.module.css";
+import style from "./UserProfile.module.scss";
 import classNames from "classnames";
 import { useUpdateProfile } from "./hooks/useProfileUpdate";
 import { useFileUpload } from "../../hooks/useFileUpload";

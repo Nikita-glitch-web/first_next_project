@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect, useRef, ChangeEvent, FC } from "react";
 import classNames from "classnames";
-import style from "./JoinUsForm.module.css";
+import style from "./JoinUsForm.module.scss";
 import { Button } from "../Controls/Button";
 import { RadioButton } from "../Radio/Radio";
 import { Input } from "../Input/Input";

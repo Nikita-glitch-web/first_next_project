@@ -1,10 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import React, { FC, FocusEvent, ChangeEvent } from "react";
 import classNames from "classnames";
-import styles from "./Input.module.css";
+import styles from "./Input.module.scss";
 import { InputProps } from "./types";
-
-
 
 export const Input: FC<InputProps> = ({
   errorMessage,

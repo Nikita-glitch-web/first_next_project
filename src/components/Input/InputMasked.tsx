@@ -1,8 +1,8 @@
-import React, { FC, FocusEvent, ChangeEvent } from 'react';
-import InputMask from 'react-input-mask';
-import { Input } from './Input';
-import styles from './Input.module.css';
-import { InputProps } from './types';
+import React, { FC, FocusEvent, ChangeEvent } from "react";
+import InputMask from "react-input-mask";
+import { Input } from "./Input";
+import styles from "./Input.module.scss";
+import { InputProps } from "./types";
 
 export const InputMasked: FC<InputProps> = ({
   value,
@@ -15,7 +15,7 @@ export const InputMasked: FC<InputProps> = ({
   return (
     <div>
       <InputMask
-        mask='+380 (99) 999-99-99'
+        mask="+380 (99) 999-99-99"
         value={value}
         onFocus={onFocus}
         onBlur={onBlur}
@@ -24,10 +24,10 @@ export const InputMasked: FC<InputProps> = ({
       >
         {/* @ts-ignore */}
         {(inputProps: any) => (
-          <Input {...inputProps} {...rest} placeholder='Phone' />
+          <Input {...inputProps} {...rest} placeholder="Phone" />
         )}
       </InputMask>
-      <label className={styles.label_phone} htmlFor='phone'>
+      <label className={styles.label_phone} htmlFor="phone">
         +38 (XX) XXX - XX - XX
       </label>
     </div>
