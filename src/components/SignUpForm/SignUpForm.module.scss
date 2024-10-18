@@ -10,9 +10,9 @@
 
 .form_title {
   text-align: center;
-  font-size: 40px;
+  font-size: var(--font-size-extra-large); /* Использование переменной */
   font-weight: 400;
-  line-height: 40px;
+  line-height: var(--font-size-extra-large); /* Использование переменной */
   margin-bottom: 20px;
 }
 
@@ -37,9 +37,9 @@
 }
 
 .success_title {
-  font-size: 40px;
+  font-size: var(--font-size-extra-large); /* Использование переменной */
   font-weight: 400;
-  line-height: 40px;
+  line-height: var(--font-size-extra-large); /* Использование переменной */
   text-align: center;
 }
 
@@ -55,7 +55,7 @@
 
 .error_message {
   color: var(--error-color);
-  font-size: 12px;
+  font-size: var(--font-size-small); /* Использование переменной */
   text-align: left;
   margin-left: 2px;
 }

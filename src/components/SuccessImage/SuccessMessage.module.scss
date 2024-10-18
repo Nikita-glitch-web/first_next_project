@@ -1,8 +1,8 @@
 .success_title {
   text-align: center;
-  font-size: 24px;
+  font-size: var(--font-size-large); /* Использование переменной */
   font-weight: 400;
-  line-height: 40px;
+  line-height: var(--font-size-extra-large); /* Использование переменной */
   margin-bottom: 20px;
 }
 
@@ -21,4 +21,7 @@
 .success_link {
   text-decoration: none;
   margin-top: 15px;
+  color: var(
+    --link-color
+  ); /* Использование переменной для цвета ссылки, если есть */
 }

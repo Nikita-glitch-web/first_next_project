@@ -1,5 +1,7 @@
 .header_wrapper {
-  background: white;
+  background: var(
+    --background-color-light
+  ); /* Использование переменной для фона */
 }
 
 .header_content {
@@ -21,8 +23,8 @@
 .button {
   min-width: 80px;
   padding: 4px 22px;
-  background: var(--primary-color);
-  color: var(--text-color);
+  background: var(--primary-color); /* Использование переменной для цвета */
+  color: var(--text-color); /* Использование переменной для текста */
   text-align: center;
   border-radius: 80px;
   line-height: 26px;
@@ -31,22 +33,28 @@
 }
 
 .button:hover {
-  background: var(--hover-btn-color);
+  background: var(
+    --hover-btn-color
+  ); /* Использование переменной для состояния hover */
   cursor: pointer;
 }
 
 .button:disabled,
 .button.disabled {
-  background: var(--disabled-color);
-  color: var(--disabled-text-color);
+  background: var(
+    --disabled-color
+  ); /* Использование переменной для отключенной кнопки */
+  color: var(
+    --disabled-text-color
+  ); /* Использование переменной для текста отключенной кнопки */
   cursor: not-allowed;
 }
 
 .title {
   text-align: center;
-  font-size: 40px;
+  font-size: var(--font-size-extra-large); /* Использование переменной */
   font-weight: 400;
-  line-height: 40px;
+  line-height: var(--font-size-extra-large); /* Использование переменной */
   margin-bottom: 20px;
 }
 
@@ -64,9 +72,9 @@
 }
 
 .header_logo_text {
-  font-size: var(--font-size-regular);
+  font-size: var(--font-size-regular); /* Использование переменной */
   font-weight: 400;
-  color: black;
+  color: var(--text-color-dark); /* Использование переменной для текста */
 }
 
 .header_btn_wrapper:nth-child(1) {
@@ -77,8 +85,8 @@
   margin-left: 10px;
   min-width: 80px;
   padding: 4px 22px;
-  background: var(--primary-color);
-  color: var(--text-color);
+  background: var(--primary-color); /* Использование переменной */
+  color: var(--text-color); /* Использование переменной */
   text-align: center;
   border-radius: 80px;
   line-height: 26px;
