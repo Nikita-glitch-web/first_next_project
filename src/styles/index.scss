@@ -1,44 +1,42 @@
 :root {
   --font-size-small: 12px;
   --font-size-regular: 16px;
+  --font-size-large: 24px;
+  --font-size-extra-large: 40px;
   --primary-color: #f4e041;
   --secondary-color: #00bdd3;
   --background-color: #f8f8f8;
-  --error-color: #CB3D40;
-  --input-border-color: #D0CFCF;
+  --error-color: #cb3d40;
+  --input-border-color: #d0cfcf;
   --text-color: #000000;
-  --input-text-color: #FFFFFFDE;
-  --input-placeholder-color: #7E7E7E;
-  --disabled-color: #B4B4B4;
-  --disabled-text-color: #FFF;
-  --hover-btn-color: #FFE302;
+  --input-text-color: #ffffffde;
+  --input-placeholder-color: #7e7e7e;
+  --disabled-color: #b4b4b4;
+  --disabled-text-color: #fff;
+  --hover-btn-color: #ffe302;
   --submit-btn-hover: #5e5e5e;
   --btn-background-color: #f5f5f5;
   --btn-border-color: #ddd;
   --upload-btn-hover: #e0e0e0;
 }
 
-
 * {
   box-sizing: border-box;
 }
 
 .content_wrapper {
-    max-width: 1170px;
-    margin: 0 auto;
+  max-width: 1170px;
+  margin: 0 auto;
 }
 
 .content {
-  font-family: 'Nunito', sans-serif;
-
+  font-family: "Nunito", sans-serif;
 }
 
-
-
 html {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   color: var(--text-color);
-  font-size: 16px; 
+  font-size: 16px;
   scroll-behavior: smooth;
 }
 
@@ -48,8 +46,11 @@ body {
   margin: 0px;
 }
 
-button, input, textarea, a {
-  font-family: 'Nunito', sans-serif;
+button,
+input,
+textarea,
+a {
+  font-family: "Nunito", sans-serif;
   font-size: 1rem;
 }
 

@@ -10,35 +10,10 @@
 
 .form_title {
   text-align: center;
-  font-size: 40px;
+  font-size: var(--font-size-extra-large); /* Использование переменной */
   font-weight: 400;
-  line-height: 40px;
+  line-height: var(--font-size-extra-large); /* Использование переменной */
   margin-bottom: 20px;
-}
-
-.success_title {
-  text-align: center;
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 40px;
-  margin-bottom: 20px;
-}
-
-.success_img {
-  width: 100%;
-}
-
-.success_message {
-  max-width: 300px;
-  max-height: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.success_link {
-  text-decoration: none;
-  margin-top: 15px;
 }
 
 .form_content_wrapper {
@@ -58,7 +33,7 @@
   color: white;
   background: var(--input-placeholder-color);
   border: 1px solid var(--input-placeholder-color);
-  font-size: var(--font-size-regular);
+  font-size: var(--font-size-regular); /* Использование переменной */
   font-weight: 400;
   line-height: 26px;
   width: 100%;
@@ -79,7 +54,7 @@
 
 .error_message {
   color: var(--error-color);
-  font-size: 12px;
+  font-size: var(--font-size-small); /* Использование переменной */
   text-align: left;
   margin-left: 2px;
 }

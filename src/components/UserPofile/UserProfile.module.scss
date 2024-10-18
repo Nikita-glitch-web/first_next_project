@@ -11,9 +11,9 @@
 
 .form_title {
   text-align: center;
-  font-size: 40px;
+  font-size: var(--font-size-extra-large); /* Использование переменной */
   font-weight: 400;
-  line-height: 40px;
+  line-height: var(--font-size-extra-large); /* Использование переменной */
   margin-bottom: 20px;
 }
 
@@ -26,15 +26,24 @@
 .upload_container {
   display: flex;
   align-items: center;
+  height: 54px;
+  background: var(--input-text-color);
+  border: 1px solid var(--input-border-color);
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 4px;
+  margin-top: 38px;
 }
 
 .upload_button {
-  padding: 10px 20px;
-  margin-right: 10px;
+  background: var(--input-text-color);
+  border: 1px solid var(--text-color);
+  padding: 0 20px;
   cursor: pointer;
-  border: 1px solid var(--btn-border-color);
-  background-color: var(--btn-background-color);
-  border-radius: 5px;
+  font-size: var(--font-size-regular); /* Использование переменной */
+  border-right: 1px solid var(--text-color);
+  height: 100%;
   transition: background-color 0.3s ease;
 }
 
@@ -46,9 +55,8 @@
   margin-left: 10px;
   display: flex;
   align-items: center;
-  justify-content: center;
   overflow: hidden;
-  position: relative;
+  padding-right: 66px;
 }
 
 .image_preview {
@@ -58,7 +66,7 @@
 
 .error_message {
   color: var(--error-color);
-  font-size: 12px;
+  font-size: var(--font-size-small); /* Использование переменной */
   text-align: left;
   margin-left: 2px;
 }
@@ -74,7 +82,7 @@
   color: white;
   background: var(--input-placeholder-color);
   border: 1px solid var(--input-placeholder-color);
-  font-size: var(--font-size-regular);
+  font-size: var(--font-size-regular); /* Использование переменной */
   font-weight: 400;
   line-height: 26px;
   width: 100%;
@@ -97,56 +105,10 @@
   border: 2px solid var(--error-color);
 }
 
-.upload_container {
-  display: flex;
-  align-items: center;
-  height: 54px;
-  background: var(--input-text-color);
-  border: 1px solid var(--input-border-color);
-  border-radius: 4px;
-  width: 100%;
-  box-sizing: border-box;
-  margin-bottom: 4px;
-  margin-top: 38px;
-}
-
-.upload_button {
-  background: var(--input-text-color);
-  border: 1px solid var(--text-color);
-  padding: 0 20px;
-  cursor: pointer;
-  font-size: var(--font-size-regular);
-  border-right: 1px solid var(--text-color);
-  height: 100%;
-}
-
-.upload_button:hover {
-  background: var(--upload-btn-hover);
-}
-
-.image_preview_container {
-  margin-left: 10px;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  padding-right: 66px;
-}
-
-.error_border {
-  border: 2px solid var(--error-color);
-}
-
 .error_btn_input {
   border-right: 2px solid var(--error-color);
   border-radius: 0px;
   border-left: none;
   border-top: none;
   border-bottom: none;
-}
-
-.error_message {
-  color: var(--error-color);
-  font-size: var(--font-size-small);
-  text-align: left;
-  margin-left: 2px;
 }

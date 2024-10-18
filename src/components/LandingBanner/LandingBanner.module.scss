@@ -19,21 +19,25 @@
 }
 
 .banner_title {
-  font-size: 40px;
+  font-size: var(--font-size-extra-large); /* Использование переменной */
   font-weight: 400;
-  line-height: 40px;
+  line-height: var(--font-size-extra-large); /* Использование переменной */
   text-align: center;
-  color: white;
+  color: var(
+    --text-color-light
+  ); /* Использование переменной для цвета текста */
   margin: 0px;
 }
 
 .bannner_text {
-  font-size: var(--font-size-regular);
+  font-size: var(--font-size-regular); /* Использование переменной */
   font-weight: 400;
   line-height: 26px;
   text-align: center;
   margin: 0px;
-  color: white;
+  color: var(
+    --text-color-light
+  ); /* Использование переменной для цвета текста */
   padding-top: 20px;
 }
 

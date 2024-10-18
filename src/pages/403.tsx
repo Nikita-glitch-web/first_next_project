@@ -1,4 +1,4 @@
-import style from "./UserProfile.module.css";
+import style from "./403.module.scss";
 
 const Custom403 = () => {
   return (

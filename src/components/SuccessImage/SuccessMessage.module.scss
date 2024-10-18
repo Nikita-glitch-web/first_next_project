@@ -1,0 +1,27 @@
+.success_title {
+  text-align: center;
+  font-size: var(--font-size-large); /* Использование переменной */
+  font-weight: 400;
+  line-height: var(--font-size-extra-large); /* Использование переменной */
+  margin-bottom: 20px;
+}
+
+.success_img {
+  width: 100%;
+}
+
+.success_message {
+  max-width: 300px;
+  max-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.success_link {
+  text-decoration: none;
+  margin-top: 15px;
+  color: var(
+    --link-color
+  ); /* Использование переменной для цвета ссылки, если есть */
+}
